@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    @apply text-[62.5%] h-screen;
+  }
+
+  #root {
+    @apply h-full;
+  }
+}
