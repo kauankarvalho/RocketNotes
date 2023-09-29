@@ -1,5 +1,5 @@
 export default {
-  content: ["./src/pages/**/*.{js,jsx}"],
+  content: ["./src/pages/**/*.{js,jsx}", "./src/components/**/*.{js,jsx}"],
   theme: {
     fontFamily: {
       roboto: ["Roboto", "sans-serif"],
