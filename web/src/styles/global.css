@@ -4,7 +4,11 @@
 
 @layer base {
   :root {
-    @apply text-[62.5%] h-screen font-roboto_slab bg-gray-800;
+    @apply text-[62.5%] font-roboto_slab bg-gray-800;
+  }
+
+  body {
+    @apply h-screen
   }
 
   #root {
