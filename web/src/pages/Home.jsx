@@ -1,9 +1,8 @@
+import { FiSearch, FiPlus } from "react-icons/fi"
 import { Header } from "../components/Header"
 import { TextButton } from "../components/TextButton"
 import { Input } from "../components/Input"
 import { Section } from "../components/Section"
-import { FiSearch } from "react-icons/fi"
-import { FiPlus } from "react-icons/fi"
 
 export function Home() {
   return (
