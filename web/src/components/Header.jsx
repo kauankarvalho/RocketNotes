@@ -2,7 +2,7 @@ import { RiShutDownLine } from "react-icons/ri"
 
 export function Header() {
   return (
-    <header className="py-[2rem] px-[4rem] border-b-[0.1rem] border-gray-700 flex justify-between items-center">
+    <header className="py-[2rem] px-[4rem] border-b-[0.1rem] border-gray-700 flex justify-between items-center sticky top-0 bg-gray-800 z-10">
       <div className="flex gap-[1rem]">
         <img
           src="https://github.com/kauankarvalho.png"
