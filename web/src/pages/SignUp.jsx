@@ -1,6 +1,7 @@
 import { FiUser, FiMail, FiLock } from "react-icons/fi"
 import { Input } from "../components/Input"
 import { Button } from "../components/Button"
+import { Link } from "react-router-dom"
 
 export function SignUp() {
   return (
@@ -52,9 +53,9 @@ export function SignUp() {
           </fieldset>
         </form>
 
-        <a href="#" className="text-orange text-[1.6rem]/[2.1rem] mt-[3rem]">
+        <Link to="/" className="text-orange text-[1.6rem]/[2.1rem] mt-[3rem]">
           Voltar para o login
-        </a>
+        </Link>
       </main>
     </div>
   )

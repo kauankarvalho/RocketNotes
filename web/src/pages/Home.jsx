@@ -4,6 +4,8 @@ import { TextButton } from "../components/TextButton"
 import { Input } from "../components/Input"
 import { Section } from "../components/Section"
 
+import { Link } from "react-router-dom"
+
 export function Home() {
   return (
     <div
@@ -24,13 +26,13 @@ export function Home() {
         </ul>
 
         <footer>
-          <a
-            href="#"
+          <Link
+            to="/new"
             className="bg-orange py-[2.8rem] flex justify-center text-[2rem]/[2.6rem] gap-[0.8rem] items-center text-gray-900"
           >
             <FiPlus className="w-[2.2rem] h-full" />
             Criar nota
-          </a>
+          </Link>
         </footer>
       </aside>
 

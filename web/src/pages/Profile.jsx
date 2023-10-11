@@ -1,14 +1,15 @@
 import { FiArrowLeft, FiCamera, FiUser, FiMail, FiLock } from "react-icons/fi"
 import { Input } from "../components/Input"
 import { Button } from "../components/Button"
+import { Link } from "react-router-dom"
 
 export function Profile() {
   return (
     <div id="profile" className="h-full">
       <header className="bg-gray-900 py-[5rem] px-[15rem] flex">
-        <a href="#">
+        <Link to="/">
           <FiArrowLeft className="w-[2.4rem] h-[2.4rem] text-gray-500" />
-        </a>
+        </Link>
       </header>
 
       <main className="flex justify-center">

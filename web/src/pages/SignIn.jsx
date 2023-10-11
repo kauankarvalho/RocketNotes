@@ -1,6 +1,7 @@
 import { FiMail, FiLock } from "react-icons/fi"
 import { Input } from "../components/Input"
 import { Button } from "../components/Button"
+import { Link } from "react-router-dom"
 
 export function SignIn() {
   return (
@@ -43,9 +44,12 @@ export function SignIn() {
           </fieldset>
         </form>
 
-        <a href="#" className="text-orange text-[1.6rem]/[2.1rem] mt-[3rem]">
+        <Link
+          to="/register"
+          className="text-orange text-[1.6rem]/[2.1rem] mt-[3rem]"
+        >
           Criar conta
-        </a>
+        </Link>
       </main>
 
       <aside className="flex-1 bg-[url(../assets/background.png)] bg-cover bg-center bg-no-repeat opacity-20"></aside>

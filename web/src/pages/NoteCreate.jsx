@@ -4,6 +4,8 @@ import { Section } from "../components/Section"
 import { NoteItem } from "../components/NoteItem"
 import { Button } from "../components/Button"
 
+import { Link } from "react-router-dom"
+
 export function NoteCreate() {
   return (
     <div id="NoteCreate" className="h-full">
@@ -19,9 +21,9 @@ export function NoteCreate() {
               Criar nota
             </h1>
 
-            <a href="#" className="text-[2rem]/[2.6rem] text-gray-500">
+            <Link to="/" className="text-[2rem]/[2.6rem] text-gray-500">
               Voltar
-            </a>
+            </Link>
           </header>
 
           <fieldset className="flex flex-col gap-[1.6rem]">
