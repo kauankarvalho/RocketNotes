@@ -17,6 +17,7 @@ model User {
   updated_at DateTime @updatedAt
 
   notes Note[]
+  links Link[]
 
   @@map("users")
 }
@@ -30,5 +31,19 @@ model Note {
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 
+  links Link[]
+
   @@map("notes")
+}
+
+model Link {
+  id         String   @id @default(uuid())
+  User       User     @relation(fields: [user_id], references: [id])
+  user_id    String
+  Note       Note     @relation(fields: [note_id], references: [id])
+  note_id    String
+  url        String
+  created_at DateTime @default(now())
+
+  @@map("links")
 }
