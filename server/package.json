@@ -1,0 +1,15 @@
+{
+  "name": "@rocketnotes/server",
+  "scripts": {
+    "dev": "nodemon ./src/server.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.4.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
+    "prisma": "^5.4.2"
+  }
+}
