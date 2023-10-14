@@ -1,5 +1,6 @@
 {
   "name": "@rocketnotes/server",
+  "type": "module",
   "scripts": {
     "dev": "nodemon ./src/server.js"
   },
