@@ -11,11 +11,31 @@ class UserController {
       data: {
         name,
         email,
-        password: hashedPassword
+        password: hashedPassword,
       },
     })
 
     return response.status(201).json()
+  }
+
+  async update(request, response) {
+    const { newName, newEmail, newPassword } = request.body
+    const { id } = request.params
+
+    const hashedPassword = await hash(newPassword, 8)
+
+    const user = await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        name: newName,
+        email: newEmail,
+        password: hashedPassword,
+      },
+    })
+
+    return response.status(200).json()
   }
 }
 
