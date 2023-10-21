@@ -57,6 +57,18 @@ class NoteController {
       note,
     })
   }
+
+  async delete(request, response) {
+    const { id } = request.params
+
+    const note = await prisma.note.delete({
+      where: {
+        id,
+      },
+    })
+
+    return response.status(200).json()
+  }
 }
 
 module.exports = NoteController
