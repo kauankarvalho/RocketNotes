@@ -19,7 +19,7 @@ class NoteController {
           data: {
             user_id: user,
             note_id: note.id,
-            url
+            url,
           },
         })
       }
@@ -31,13 +31,31 @@ class NoteController {
           data: {
             user_id: user,
             note_id: note.id,
-            name
+            name,
           },
         })
       }
     }
 
     return response.status(201).json()
+  }
+
+  async show(request, response) {
+    const { id } = request.params
+
+    const note = await prisma.note.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        links: true,
+        tags: true,
+      },
+    })
+
+    return response.status(200).json({
+      note,
+    })
   }
 }
 
