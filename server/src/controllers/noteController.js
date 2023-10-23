@@ -1,6 +1,38 @@
 const prisma = require("../database")
 
 class NoteController {
+  async index(request, response) {
+    const { user_id } = request.params
+
+    const notes = await prisma.note.findMany({
+      where: {
+        user_id,
+      },
+    })
+
+    return response.status(200).json({
+      notes,
+    })
+  }
+
+  async show(request, response) {
+    const { id } = request.params
+
+    const note = await prisma.note.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        links: true,
+        tags: true,
+      },
+    })
+
+    return response.status(200).json({
+      note,
+    })
+  }
+
   async create(request, response) {
     const { title, description, links, tags } = request.body
     const { user } = request.params
@@ -38,24 +70,6 @@ class NoteController {
     }
 
     return response.status(201).json()
-  }
-
-  async show(request, response) {
-    const { id } = request.params
-
-    const note = await prisma.note.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        links: true,
-        tags: true,
-      },
-    })
-
-    return response.status(200).json({
-      note,
-    })
   }
 
   async delete(request, response) {
