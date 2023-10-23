@@ -19,18 +19,18 @@ class UserController {
   }
 
   async update(request, response) {
-    const { newName, newEmail, newPassword } = request.body
+    const { name, email, password } = request.body
     const { id } = request.params
 
-    const hashedPassword = await hash(newPassword, 8)
+    const hashedPassword = await hash(password, 8)
 
     const user = await prisma.user.update({
       where: {
         id,
       },
       data: {
-        name: newName,
-        email: newEmail,
+        name,
+        email,
         password: hashedPassword,
       },
     })
