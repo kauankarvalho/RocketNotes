@@ -17,8 +17,8 @@ class UserController {
     }
 
     const hashedPassword = await hash(password, 8)
-
-    const user = await prisma.user.create({
+    
+    await prisma.user.create({
       data: {
         name,
         email,
@@ -44,7 +44,7 @@ class UserController {
 
     const invalidPassword = !(await compare(password, user.password))
     if (invalidPassword) {
-      throw new AppError("Senha inválida", 409)
+      throw new AppError("Senha inválida", 401)
     }
 
     let hashedPassword
