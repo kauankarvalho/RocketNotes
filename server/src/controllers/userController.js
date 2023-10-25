@@ -1,9 +1,20 @@
+const AppError = require("../utils/appError")
 const prisma = require("../database")
 const { hash } = require("bcryptjs")
 
 class UserController {
   async create(request, response) {
     const { name, email, password } = request.body
+
+    const emailExists = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    })
+
+    if (emailExists) {
+      throw new AppError("E-mail já cadastrado", 409)
+    }
 
     const hashedPassword = await hash(password, 8)
 
