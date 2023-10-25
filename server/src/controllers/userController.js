@@ -1,6 +1,6 @@
 const AppError = require("../utils/appError")
+const { hash, compare } = require("bcryptjs")
 const prisma = require("../database")
-const { hash } = require("bcryptjs")
 
 class UserController {
   async create(request, response) {
@@ -30,19 +30,36 @@ class UserController {
   }
 
   async update(request, response) {
-    const { name, email, password } = request.body
+    const { name, email, password, newPassword } = request.body
     const { id } = request.params
 
-    const hashedPassword = await hash(password, 8)
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        password: true,
+      },
+    })
 
-    const user = await prisma.user.update({
+    const invalidPassword = !(await compare(password, user.password))
+    if (invalidPassword) {
+      throw new AppError("Senha inválida", 409)
+    }
+
+    let hashedPassword
+    if (newPassword) {
+      hashedPassword = await hash(newPassword, 8)
+    }
+
+    await prisma.user.update({
       where: {
         id,
       },
       data: {
         name,
         email,
-        password: hashedPassword,
+        password: hashedPassword || user.password,
       },
     })
 
