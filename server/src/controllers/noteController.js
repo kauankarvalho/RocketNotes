@@ -1,3 +1,4 @@
+const AppError = require("../utils/appError")
 const prisma = require("../database")
 
 class NoteController {
@@ -22,14 +23,48 @@ class NoteController {
       where: {
         id,
       },
-      include: {
-        links: true,
-        tags: true,
+      select: {
+        title: true,
+        description: true,
       },
     })
 
+    const noteDoesNotExist = !note
+    if (noteDoesNotExist) {
+      throw new AppError("A nota não foi encontrada", 404)
+    }
+
+    let links = await prisma.link.findMany({
+      where: {
+        note_id: id,
+      },
+      select: {
+        url: true,
+      },
+      orderBy: {
+        url: "asc",
+      },
+    })
+
+    let tags = await prisma.tag.findMany({
+      where: {
+        note_id: id,
+      },
+      select: {
+        name: true,
+      },
+      orderBy: {
+        name: "asc",
+      },
+    })
+
+    links = links.map((link) => link.url)
+    tags = tags.map((tag) => tag.name)
+
     return response.status(200).json({
-      note,
+      ...note,
+      links,
+      tags,
     })
   }
 
