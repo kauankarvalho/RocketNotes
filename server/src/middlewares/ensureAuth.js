@@ -1,9 +1,15 @@
+const AppError = require("../utils/appError")
 const authConfig = require("../configs/auth")
 const { verify } = require("jsonwebtoken")
 
-function ensureAuthenticated(request, response, next) {
+function ensureAuth(request, response, next) {
   const authHeader = request.header.authorization
-  
+
+  const isAuthHeaderMissing = !authHeader
+  if (isAuthHeaderMissing) {
+    throw new AppError("Token não informado", 401)
+  }
+
   const [, token] = authHeader.split(" ")
 
   try {
@@ -14,7 +20,9 @@ function ensureAuthenticated(request, response, next) {
     }
 
     return next()
-  } catch {}
+  } catch {
+    throw new AppError("Token inválido", 401)
+  }
 }
 
-module.exports = ensureAuthenticated
+module.exports = ensureAuth
