@@ -1,4 +1,6 @@
+const AppError = require("../utils/appError")
 const authConfig = require("../configs/auth")
+const { compare } = require("bcryptjs")
 const { sign } = require("jsonwebtoken")
 const prisma = require("../database")
 
@@ -12,6 +14,16 @@ class LoginController {
         email,
       },
     })
+
+    const userDoesNotExist = !user
+    if (userDoesNotExist) {
+      throw new AppError("E-mail e/ou senha inválido", 401)
+    }
+
+    const invalidPassword = !(await compare(password, user.password))
+    if (invalidPassword) {
+      throw new AppError("E-mail e/ou senha inválido", 401)
+    }
 
     const token = sign({}, secret, {
       subject: user.id,
