@@ -3,7 +3,7 @@ const authConfig = require("../configs/auth")
 const { verify } = require("jsonwebtoken")
 
 function ensureAuth(request, response, next) {
-  const authHeader = request.header.authorization
+  const authHeader = request.headers.authorization
 
   const isAuthHeaderMissing = !authHeader
   if (isAuthHeaderMissing) {
