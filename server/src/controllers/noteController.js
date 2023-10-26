@@ -82,7 +82,7 @@ class NoteController {
 
     if (links) {
       for (const url of links) {
-        const link = await prisma.link.create({
+        await prisma.link.create({
           data: {
             user_id,
             note_id: note.id,
@@ -94,7 +94,7 @@ class NoteController {
 
     if (tags) {
       for (const name of tags) {
-        const tag = await prisma.tag.create({
+        await prisma.tag.create({
           data: {
             user_id,
             note_id: note.id,
@@ -110,7 +110,7 @@ class NoteController {
   async delete(request, response) {
     const { id } = request.params
 
-    const note = await prisma.note.delete({
+    await prisma.note.delete({
       where: {
         id,
       },
