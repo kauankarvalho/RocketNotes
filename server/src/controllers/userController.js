@@ -31,7 +31,7 @@ class UserController {
 
   async update(request, response) {
     const { name, email, password, newPassword } = request.body
-    const { id } = request.params
+    const { id } = request.user
 
     const user = await prisma.user.findUnique({
       where: {
