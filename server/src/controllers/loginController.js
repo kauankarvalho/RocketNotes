@@ -1,7 +1,7 @@
 const AppError = require("../utils/appError")
 const authConfig = require("../configs/auth")
-const { compare } = require("bcryptjs")
 const { sign } = require("jsonwebtoken")
+const { compare } = require("bcryptjs")
 const prisma = require("../database")
 
 class LoginController {
@@ -31,7 +31,6 @@ class LoginController {
     })
 
     return response.status(200).json({
-      user,
       token,
     })
   }
