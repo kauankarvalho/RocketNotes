@@ -17,7 +17,7 @@ class UserController {
     }
 
     const hashedPassword = await hash(password, 8)
-    
+
     await prisma.user.create({
       data: {
         name,
@@ -38,9 +38,21 @@ class UserController {
         id,
       },
       select: {
+        email: true,
         password: true,
       },
     })
+
+    const emailExists = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    })
+
+    const isDuplicateEmail = emailExists && email !== user.email
+    if (isDuplicateEmail) {
+      throw new AppError("E-mail já cadastrado", 409)
+    }
 
     const invalidPassword = !(await compare(password, user.password))
     if (invalidPassword) {
