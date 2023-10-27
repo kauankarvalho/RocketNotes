@@ -10,7 +10,7 @@ const multerConfig = {
     destination: tmpFolder,
     filename: (request, file, callback) => {
       const fileHash = cripto.randomBytes(10).toString("hex")
-      const fileName = fileHash
+      const fileName = `${fileHash}.png`
 
       return callback(null, fileName)
     },
