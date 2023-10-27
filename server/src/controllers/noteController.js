@@ -3,7 +3,7 @@ const prisma = require("../database")
 
 class NoteController {
   async index(request, response) {
-    const { user_id } = request.params
+    const { id: user_id } = request.user
 
     const notes = await prisma.note.findMany({
       where: {
@@ -70,7 +70,7 @@ class NoteController {
 
   async create(request, response) {
     const { title, description, links, tags } = request.body
-    const { user_id } = request.params
+    const { id: user_id } = request.user
 
     const note = await prisma.note.create({
       data: {
