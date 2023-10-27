@@ -2,7 +2,7 @@ const prisma = require("../database")
 
 class TagController {
   async index(request, response) {
-    const { user_id } = request.params
+    const { id: user_id } = request.user
 
     let tags = await prisma.tag.findMany({
       where: {
