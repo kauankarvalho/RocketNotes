@@ -13,10 +13,10 @@ function ensureAuth(request, response, next) {
   const [, token] = authHeader.split(" ")
 
   try {
-    const { sub: user_id } = verify(token, authConfig.jwt.secret)
+    const { sub: id } = verify(token, authConfig.jwt.secret)
 
     request.user = {
-      id: user_id,
+      id,
     }
 
     return next()
