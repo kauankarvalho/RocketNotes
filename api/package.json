@@ -1,5 +1,5 @@
 {
-  "name": "@rocketnotes/server",
+  "name": "@rocketnotes/api",
   "scripts": {
     "dev": "nodemon ./src/server.js"
   },
