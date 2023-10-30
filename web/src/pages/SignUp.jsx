@@ -19,8 +19,12 @@ export function SignUp() {
         email,
         password,
       })
-      .then(() => {
+      .then((response) => {
+        alert(response.data.message)
         navigate("/")
+      })
+      .catch((error) => {
+        alert(error.response.data.message)
       })
   }
 
