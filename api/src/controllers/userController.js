@@ -86,7 +86,10 @@ class UserController {
       },
     })
 
-    return response.status(200).json()
+    return response.status(200).json({
+      status: "Successful",
+      message: "As informações da conta foram atualizadas com sucesso",
+    })
   }
 }
 
