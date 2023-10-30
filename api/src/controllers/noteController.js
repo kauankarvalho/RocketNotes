@@ -72,6 +72,14 @@ class NoteController {
     const { title, description, links, tags } = request.body
     const { id: user_id } = request.user
 
+    const isMissingRequiredData = !title || !description
+    if (isMissingRequiredData) {
+      throw new AppError(
+        "Por favor, complete os campos de título e descrição",
+        400,
+      )
+    }
+
     const note = await prisma.note.create({
       data: {
         user_id,
@@ -104,7 +112,10 @@ class NoteController {
       }
     }
 
-    return response.status(201).json()
+    return response.status(201).json({
+      status: "Successful",
+      message: "Anotação criada com sucesso",
+    })
   }
 
   async delete(request, response) {
