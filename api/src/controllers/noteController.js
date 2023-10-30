@@ -127,7 +127,10 @@ class NoteController {
       },
     })
 
-    return response.status(200).json()
+    return response.status(200).json({
+      status: "Successful",
+      message: "Anotação excluida com sucesso",
+    })
   }
 }
 
