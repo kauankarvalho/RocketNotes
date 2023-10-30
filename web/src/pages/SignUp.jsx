@@ -1,9 +1,29 @@
 import { FiUser, FiMail, FiLock } from "react-icons/fi"
-import { Input } from "../components/Input"
+import { Link, useNavigate } from "react-router-dom"
 import { Button } from "../components/Button"
-import { Link } from "react-router-dom"
+import { Input } from "../components/Input"
+import { api } from "../services/api.js"
+import { useState } from "react"
 
 export function SignUp() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const navigate = useNavigate()
+
+  function handleSignUp() {
+    api
+      .post("/user", {
+        name,
+        email,
+        password,
+      })
+      .then(() => {
+        navigate("/")
+      })
+  }
+
   return (
     <div id="SignUp" className="flex h-full">
       <aside className="flex-1 bg-[url(../assets/background.png)] bg-cover bg-center bg-no-repeat opacity-20"></aside>
@@ -31,25 +51,25 @@ export function SignUp() {
                 id="name"
                 type="text"
                 placeholder="Nome"
-                required
+                onChange={(event) => setName(event.target.value)}
               />
               <Input
                 icon={FiMail}
                 id="email"
                 type="email"
                 placeholder="E-mail"
-                required
+                onChange={(event) => setEmail(event.target.value)}
               />
               <Input
                 icon={FiLock}
                 id="password"
                 type="password"
                 placeholder="Senha"
-                required
+                onChange={(event) => setPassword(event.target.value)}
               />
             </div>
 
-            <Button title="Cadastrar" />
+            <Button title="Cadastrar" onClick={handleSignUp} />
           </fieldset>
         </form>
 
