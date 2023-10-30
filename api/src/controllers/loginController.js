@@ -15,6 +15,14 @@ class LoginController {
       },
     })
 
+    const isMissingRequiredData = !email || !password
+    if (isMissingRequiredData) {
+      throw new AppError(
+        "Por favor, preencha todos os campos obrigatórios",
+        400,
+      )
+    }
+
     const userDoesNotExist = !user
     if (userDoesNotExist) {
       throw new AppError("E-mail e/ou senha inválido", 401)
