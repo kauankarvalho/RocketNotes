@@ -48,10 +48,6 @@ class UserController {
       where: {
         id,
       },
-      select: {
-        email: true,
-        password: true,
-      },
     })
 
     const emailExists = await prisma.user.findUnique({
