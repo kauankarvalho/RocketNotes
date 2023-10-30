@@ -6,6 +6,14 @@ class UserController {
   async create(request, response) {
     const { name, email, password } = request.body
 
+    const isMissingRequiredData = !name || !email || !password
+    if (isMissingRequiredData) {
+      throw new AppError(
+        "Por favor, preencha todos os campos obrigatórios",
+        400,
+      )
+    }
+
     const emailExists = await prisma.user.findUnique({
       where: {
         email,
@@ -26,7 +34,10 @@ class UserController {
       },
     })
 
-    return response.status(201).json()
+    return response.status(201).json({
+      status: "Successful",
+      message: "Conta criada com sucesso",
+    })
   }
 
   async update(request, response) {
