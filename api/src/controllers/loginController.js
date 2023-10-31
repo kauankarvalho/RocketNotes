@@ -13,6 +13,13 @@ class LoginController {
       where: {
         email,
       },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        password: true,
+        avatar: true,
+      },
     })
 
     const isMissingRequiredData = !email || !password
@@ -39,6 +46,7 @@ class LoginController {
     })
 
     return response.status(200).json({
+      user,
       token,
     })
   }
