@@ -1,9 +1,20 @@
 import { FiMail, FiLock } from "react-icons/fi"
-import { Input } from "../components/Input"
 import { Button } from "../components/Button"
+import { Input } from "../components/Input"
 import { Link } from "react-router-dom"
+import { useAuth } from "../hooks/auth"
+import { useState } from "react"
 
 export function SignIn() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const { signIn } = useAuth()
+
+  function handleSignIn() {
+    signIn({ email, password })
+  }
+
   return (
     <div id="SignIn" className="flex h-full">
       <main className="px-[16rem] flex flex-col justify-center items-center gap-[5rem]">
@@ -29,18 +40,18 @@ export function SignIn() {
                 id="email"
                 type="email"
                 placeholder="E-mail"
-                required
+                onChange={(event) => setEmail(event.target.value)}
               />
               <Input
                 icon={FiLock}
                 id="password"
                 type="password"
                 placeholder="Senha"
-                required
+                onChange={(event) => setPassword(event.target.value)}
               />
             </div>
 
-            <Button title="Entrar" />
+            <Button title="Entrar" onClick={handleSignIn} />
           </fieldset>
         </form>
 
