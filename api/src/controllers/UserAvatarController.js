@@ -1,4 +1,4 @@
-const DiskStorage = require("../providers/diskStorage")
+const DiskStorage = require("../providers/DiskStorage")
 const prisma = require("../database")
 
 class UserAvatarController {

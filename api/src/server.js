@@ -1,5 +1,5 @@
 require("express-async-errors")
-const AppError = require("./utils/appError")
+const AppError = require("./utils/AppError")
 const express = require("express")
 const routes = require("./routes")
 const cors = require("cors")

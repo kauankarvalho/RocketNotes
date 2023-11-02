@@ -1,4 +1,4 @@
-const TagController = require("../controllers/tagController")
+const TagController = require("../controllers/TagController")
 const ensureAuth = require("../middlewares/ensureAuth")
 const { Router } = require("express")
 

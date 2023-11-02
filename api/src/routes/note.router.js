@@ -1,4 +1,4 @@
-const NoteController = require("../controllers/noteController")
+const NoteController = require("../controllers/NoteController")
 const ensureAuth = require("../middlewares/ensureAuth")
 const { Router } = require("express")
 
