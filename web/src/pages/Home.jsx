@@ -1,9 +1,8 @@
-import { FiSearch, FiPlus } from "react-icons/fi"
-import { Header } from "../components/Header"
 import { TextButton } from "../components/TextButton"
-import { Input } from "../components/Input"
+import { FiSearch, FiPlus } from "react-icons/fi"
 import { Section } from "../components/Section"
-
+import { Header } from "../components/Header"
+import { Input } from "../components/Input"
 import { Link } from "react-router-dom"
 
 export function Home() {

@@ -1,8 +1,8 @@
-import { Header } from "../components/Header"
 import { TextButton } from "../components/TextButton"
 import { Section } from "../components/Section"
-import { Tag } from "../components/Tag"
+import { Header } from "../components/Header"
 import { Button } from "../components/Button"
+import { Tag } from "../components/Tag"
 
 export function NotePreview() {
   return (

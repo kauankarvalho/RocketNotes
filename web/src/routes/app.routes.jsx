@@ -1,8 +1,8 @@
-import { Routes, Route } from "react-router-dom"
-import { Home } from "../pages/Home"
-import { Profile } from "../pages/Profile"
-import { NoteCreate } from "../pages/NoteCreate"
 import { NotePreview } from "../pages/NotePreview"
+import { Routes, Route } from "react-router-dom"
+import { NoteCreate } from "../pages/NoteCreate"
+import { Profile } from "../pages/Profile"
+import { Home } from "../pages/Home"
 
 export function AppRoutes() {
   return (
