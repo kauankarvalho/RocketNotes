@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
       .then((response) => {
         const { user, token } = response.data
 
-        api.defaults.headers.authorization = `Bearer ${token}`
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`
 
         localStorage.setItem("@rocketnotes:user", JSON.stringify(user))
         localStorage.setItem("@rocketnotes:token", token)
@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
 
     const userAndTokenExists = user && token
     if (userAndTokenExists) {
-      api.defaults.headers.authorization = `Bearer ${token}`
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`
 
       setData({
         user: JSON.parse(user),
