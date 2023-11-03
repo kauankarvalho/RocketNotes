@@ -45,6 +45,9 @@ class LoginController {
       expiresIn,
     })
 
+    delete user.id
+    delete user.password
+
     return response.status(200).json({
       user,
       token,
