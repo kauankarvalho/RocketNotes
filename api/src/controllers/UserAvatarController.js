@@ -15,14 +15,13 @@ class UserAvatarController {
     })
 
     const avatarExists = user.avatar
-
     if (avatarExists) {
       await diskStorage.deleteFile(user.avatar)
     }
 
     await diskStorage.saveFile(avatar)
 
-    await prisma.user.update({
+    const updatedUser = await prisma.user.update({
       where: {
         id,
       },
@@ -31,7 +30,9 @@ class UserAvatarController {
       },
     })
 
-    return reponse.status(200).json()
+    return reponse.status(200).json({
+      avatar: updatedUser.avatar,
+    })
   }
 }
 
