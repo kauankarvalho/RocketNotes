@@ -1,9 +1,43 @@
 import { FiArrowLeft, FiCamera, FiUser, FiMail, FiLock } from "react-icons/fi"
+import avatarDefault from "../assets/avatar.svg"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
 import { Link } from "react-router-dom"
+import { useAuth } from "../hooks/auth"
+import { api } from "../services/api"
+import { useState } from "react"
 
 export function Profile() {
+  const { user, updateProfile } = useAuth()
+
+  const [name, setName] = useState(user.name)
+  const [email, setEmail] = useState(user.email)
+  const [password, setPassword] = useState("")
+  const [newPassword, setNewPassword] = useState("")
+
+  let avatarUrl = avatarDefault
+
+  const userAvatarExists = user.avatar
+
+  if (userAvatarExists) {
+    avatarUrl = `${api.defaults.baseURL}/file/${user.avatar}`
+  }
+
+  const [avatar, setAvatar] = useState(avatarUrl)
+  const [avatarFile, setAvatarFile] = useState(null)
+
+  function handleChangeAvatar(event) {
+    const file = event.target.files[0]
+    setAvatarFile(file)
+
+    const filePreview = URL.createObjectURL(file)
+    setAvatar(filePreview)
+  }
+
+  function handleUpdate() {
+    updateProfile({ name, email, password, newPassword, avatarFile })
+  }
+
   return (
     <div id="profile" className="h-full">
       <header className="bg-gray-900 py-[5rem] px-[15rem] flex">
@@ -16,8 +50,8 @@ export function Profile() {
         <form className="w-full max-w-[34rem] flex flex-col items-center">
           <div className="relative w-[16.5rem] h-[16.5rem] mt-[-8rem] mb-[6.4rem]">
             <img
-              src="https://github.com/kauankarvalho.png"
-              alt="Imagem de Kauan Carvalho"
+              src={avatar}
+              alt={`Imagem de ${user.name}`}
               className="w-[16.5rem] h-[16.5rem] rounded-full"
             />
 
@@ -26,7 +60,12 @@ export function Profile() {
               className="bg-orange flex max-w-min p-[1.5rem] rounded-full absolute right-[0.4rem] bottom-[0.4rem] cursor-pointer"
             >
               <FiCamera className="w-[2rem] h-[2rem] text-gray-800" />
-              <input id="avatar" type="file" className="hidden" />
+              <input
+                id="avatar"
+                type="file"
+                className="hidden"
+                onChange={handleChangeAvatar}
+              />
             </label>
           </div>
 
@@ -37,36 +76,38 @@ export function Profile() {
                 id="name"
                 type="text"
                 placeholder="Nome"
-                required
+                value={name}
+                onChange={(event) => setName(event.target.value)}
               />
               <Input
                 icon={FiMail}
                 id="email"
                 type="email"
                 placeholder="Novo E-mail"
-                required
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
               />
             </div>
 
             <div className="flex flex-col gap-[0.8rem] w-full">
               <Input
                 icon={FiLock}
-                id="oldPassword"
+                id="password"
                 type="password"
                 placeholder="Senha atual"
-                required
+                onChange={(event) => setPassword(event.target.value)}
               />
               <Input
                 icon={FiLock}
                 id="newPassword"
                 type="password"
                 placeholder="Nova senha"
-                required
+                onChange={(event) => setNewPassword(event.target.value)}
               />
             </div>
           </div>
 
-          <Button title="Salvar" />
+          <Button title="Salvar" onClick={handleUpdate} />
         </form>
       </main>
     </div>

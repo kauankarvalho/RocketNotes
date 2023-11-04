@@ -5,6 +5,7 @@ const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
   const [data, setData] = useState({})
+  const [avatar, setAvatar] = useState(null)
 
   function signIn({ email, password }) {
     api
@@ -21,6 +22,41 @@ export function AuthProvider({ children }) {
         localStorage.setItem("@rocketnotes:token", token)
 
         setData({ user, token })
+      })
+      .catch((error) => {
+        alert(error.response.data.message)
+      })
+  }
+
+  function updateProfile({ name, email, password, newPassword, avatarFile }) {
+    const avatarFileExists = avatarFile
+    if (avatarFileExists) {
+      const fileUploadForm = new FormData()
+      fileUploadForm.append("avatar", avatarFile)
+
+      api.patch("/user/avatar", fileUploadForm).then((response) => {
+        setAvatar(response.data.avatar)
+      })
+    }
+
+    api
+      .put("/user", {
+        name,
+        email,
+        password,
+        newPassword,
+      })
+      .then((response) => {
+        const user = {
+          name,
+          email,
+          avatar,
+        }
+
+        localStorage.setItem("@rocketnotes:user", JSON.stringify(user))
+        setData({ user })
+
+        alert(response.data.message)
       })
       .catch((error) => {
         alert(error.response.data.message)
@@ -52,6 +88,7 @@ export function AuthProvider({ children }) {
       value={{
         user: data.user,
         signIn,
+        updateProfile,
         signOut,
       }}
     >
