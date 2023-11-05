@@ -1,17 +1,26 @@
 import { RiShutDownLine } from "react-icons/ri"
+import avatarDefault from "../assets/avatar.svg"
 import { useAuth } from "../hooks/auth"
 import { Link } from "react-router-dom"
+import { api } from "../services/api"
 
 export function Header() {
-  const { signOut } = useAuth()
+  const { user, signOut } = useAuth()
+
+  let avatar = avatarDefault
+
+  const userAvatarExists = user.avatar
+  if (userAvatarExists) {
+    avatar = `${api.defaults.baseURL}/file/${user.avatar}`
+  }
 
   return (
     <header className="py-[2rem] px-[4rem] border-b-[0.1rem] border-gray-700 flex justify-between items-center sticky top-0 bg-gray-800 z-10">
       <div className="flex gap-[1rem]">
         <Link to="/profile">
           <img
-            src="https://github.com/kauankarvalho.png"
-            alt="Imagem de Kauan Carvalho"
+            src={avatar}
+            alt={`Imagem de ${user.name}`}
             className="w-[7rem] h-[7rem] rounded-full"
           />
         </Link>
@@ -22,7 +31,7 @@ export function Header() {
           </span>
 
           <strong className="text-[1.8rem]/[2.4rem] text-white">
-            Kauan Carvalho
+            {user.name}
           </strong>
         </div>
       </div>
