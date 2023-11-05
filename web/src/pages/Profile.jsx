@@ -18,7 +18,6 @@ export function Profile() {
   let avatarUrl = avatarDefault
 
   const userAvatarExists = user.avatar
-
   if (userAvatarExists) {
     avatarUrl = `${api.defaults.baseURL}/file/${user.avatar}`
   }

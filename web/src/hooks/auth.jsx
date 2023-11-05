@@ -5,7 +5,6 @@ const AuthContext = createContext()
 
 export function AuthProvider({ children }) {
   const [data, setData] = useState({})
-  const [avatar, setAvatar] = useState(null)
 
   function signIn({ email, password }) {
     api
@@ -35,7 +34,8 @@ export function AuthProvider({ children }) {
       fileUploadForm.append("avatar", avatarFile)
 
       api.patch("/user/avatar", fileUploadForm).then((response) => {
-        setAvatar(response.data.avatar)
+        console.log(response.data)
+        avatarFile = response.data.avatar
       })
     }
 
@@ -50,7 +50,7 @@ export function AuthProvider({ children }) {
         const user = {
           name,
           email,
-          avatar,
+          avatar: avatarFile,
         }
 
         localStorage.setItem("@rocketnotes:user", JSON.stringify(user))
