@@ -3,9 +3,17 @@ import { FiSearch, FiPlus } from "react-icons/fi"
 import { Section } from "../components/Section"
 import { Header } from "../components/Header"
 import { Input } from "../components/Input"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import { api } from "../services/api"
 
 export function Home() {
+  const [tags, setTags] = useState([])
+
+  useEffect(() => {
+    api.get("/tag").then((response) => setTags(response.data.tags))
+  }, [])
+
   return (
     <div
       id="home"
@@ -22,6 +30,12 @@ export function Home() {
           <li>
             <TextButton title="Todos" isOrange />
           </li>
+
+          {tags.map((tag, index) => (
+            <li key={String(index)}>
+              <TextButton title={tag} />
+            </li>
+          ))}
         </ul>
 
         <footer>
