@@ -34,7 +34,6 @@ export function AuthProvider({ children }) {
       fileUploadForm.append("avatar", avatarFile)
 
       api.patch("/user/avatar", fileUploadForm).then((response) => {
-        console.log(response.data)
         avatarFile = response.data.avatar
       })
     }
