@@ -14,6 +14,7 @@ class TagController {
       orderBy: {
         name: "asc",
       },
+      distinct: ["name"],
     })
 
     tags = tags.map((tag) => tag.name)
