@@ -18,6 +18,9 @@ class NoteController {
           },
         },
       },
+      orderBy: {
+        title: "asc",
+      },
     })
 
     return response.status(200).json({
