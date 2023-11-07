@@ -11,9 +11,11 @@ import { api } from "../services/api"
 
 export function Home() {
   const [tags, setTags] = useState([])
+  const [notes, setNotes] = useState([])
 
   useEffect(() => {
     api.get("/tag").then((response) => setTags(response.data.tags))
+    api.get("/note").then((response) => setNotes(response.data.notes))
   }, [])
 
   return (
@@ -61,7 +63,15 @@ export function Home() {
           placeholder="Pesquisar pelo título"
         />
 
-        <Section title="Minhas notas"></Section>
+        <Section title="Minhas notas">
+          {notes.map((note, index) => (
+            <Note key={String(index)} title={note.title}>
+              {note.tags.map((tag, index) => (
+                <Tag key={String(index)} title={tag.name} />
+              ))}
+            </Note>
+          ))}
+        </Section>
       </main>
     </div>
   )
