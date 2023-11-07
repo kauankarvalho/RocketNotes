@@ -9,6 +9,15 @@ class NoteController {
       where: {
         user_id,
       },
+      select: {
+        id: true,
+        title: true,
+        tags: {
+          select: {
+            name: true,
+          },
+        },
+      },
     })
 
     return response.status(200).json({
