@@ -4,7 +4,9 @@ import { Section } from "../components/Section"
 import { Header } from "../components/Header"
 import { Input } from "../components/Input"
 import { useEffect, useState } from "react"
+import { Note } from "../components/Note"
 import { Link } from "react-router-dom"
+import { Tag } from "../components/Tag"
 import { api } from "../services/api"
 
 export function Home() {
