@@ -4,10 +4,14 @@ const prisma = require("../database")
 class NoteController {
   async index(request, response) {
     const { id: user_id } = request.user
+    const { title } = request.query
 
     const notes = await prisma.note.findMany({
       where: {
         user_id,
+        title: {
+          contains: title
+        }
       },
       select: {
         id: true,
