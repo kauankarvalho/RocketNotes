@@ -4,22 +4,47 @@ const prisma = require("../database")
 class NoteController {
   async index(request, response) {
     const { id: user_id } = request.user
-    const { title } = request.query
+    let { title, tag } = request.query
 
-    let notes = await prisma.note.findMany({
-      where: {
-        user_id,
-        title: {
-          contains: title,
+    let notes
+
+    const tagExist = tag
+    if (tagExist) {
+      notes = await prisma.note.findMany({
+        where: {
+          user_id,
+          title: {
+            contains: title,
+          },
+          tags: {
+            some: {
+              name: tag,
+            },
+          },
         },
-      },
-      include: {
-        tags: true,
-      },
-      orderBy: {
-        title: "asc",
-      },
-    })
+        include: {
+          tags: true,
+        },
+        orderBy: {
+          title: "asc",
+        },
+      })
+    } else {
+      notes = await prisma.note.findMany({
+        where: {
+          user_id,
+          title: {
+            contains: title,
+          },
+        },
+        include: {
+          tags: true,
+        },
+        orderBy: {
+          title: "asc",
+        },
+      })
+    }
 
     notes = notes.map((note) => {
       return {
