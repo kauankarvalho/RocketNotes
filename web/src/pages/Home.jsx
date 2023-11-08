@@ -10,8 +10,14 @@ import { Tag } from "../components/Tag"
 import { api } from "../services/api"
 
 export function Home() {
-  const [tags, setTags] = useState([])
   const [notes, setNotes] = useState([])
+
+  const [tags, setTags] = useState([])
+  const [tagSelected, setTagSelected] = useState("Todos")
+
+  function handleTagSelected(tag) {
+    setTagSelected(tag)
+  }
 
   useEffect(() => {
     api.get("/tag").then((response) => setTags(response.data.tags))
@@ -32,12 +38,20 @@ export function Home() {
 
         <ul className="p-[6.4rem] flex flex-col gap-[2.4rem] text-center">
           <li>
-            <TextButton title="Todos" isOrange />
+            <TextButton
+              title="Todos"
+              isOrange={tagSelected === "Todos"}
+              onClick={() => handleTagSelected("Todos")}
+            />
           </li>
 
           {tags.map((tag, index) => (
             <li key={String(index)}>
-              <TextButton title={tag} />
+              <TextButton
+                title={tag}
+                isOrange={tagSelected === tag}
+                onClick={() => handleTagSelected(tag)}
+              />
             </li>
           ))}
         </ul>
