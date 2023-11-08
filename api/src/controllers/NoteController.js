@@ -6,25 +6,27 @@ class NoteController {
     const { id: user_id } = request.user
     const { title } = request.query
 
-    const notes = await prisma.note.findMany({
+    let notes = await prisma.note.findMany({
       where: {
         user_id,
         title: {
-          contains: title
-        }
-      },
-      select: {
-        id: true,
-        title: true,
-        tags: {
-          select: {
-            name: true,
-          },
+          contains: title,
         },
+      },
+      include: {
+        tags: true,
       },
       orderBy: {
         title: "asc",
       },
+    })
+
+    notes = notes.map((note) => {
+      return {
+        id: note.id,
+        title: note.title,
+        tags: note.tags.map((tag) => tag.name).sort(),
+      }
     })
 
     return response.status(200).json({
