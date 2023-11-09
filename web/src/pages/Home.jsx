@@ -42,7 +42,7 @@ export function Home() {
           </h1>
         </header>
 
-        <ul className="p-[6.4rem] flex flex-col gap-[2.4rem] text-center">
+        <ul className="p-[6.4rem] flex flex-col gap-[2.4rem] text-center overflow-y-auto">
           <li>
             <TextButton
               title="Todos"
@@ -75,7 +75,7 @@ export function Home() {
 
       <Header />
 
-      <main className="p-[6.4rem] flex flex-col gap-[6.4rem]">
+      <main className="p-[6.4rem] flex flex-col gap-[6.4rem] overflow-y-auto">
         <Input
           icon={FiSearch}
           id="search"

@@ -15,7 +15,7 @@ export function Header() {
   }
 
   return (
-    <header className="py-[2rem] px-[4rem] border-b-[0.1rem] border-gray-700 flex justify-between items-center sticky top-0 bg-gray-800 z-10">
+    <header className="py-[2rem] px-[4rem] border-b-[0.1rem] border-gray-700 flex justify-between items-center bg-gray-800">
       <div className="flex gap-[1rem]">
         <Link to="/profile">
           <img
