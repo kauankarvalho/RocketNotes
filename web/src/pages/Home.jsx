@@ -10,18 +10,24 @@ import { Tag } from "../components/Tag"
 import { api } from "../services/api"
 
 export function Home() {
+  const [search, setSearch] = useState("")
   const [notes, setNotes] = useState([])
 
   const [tags, setTags] = useState([])
-  const [tagSelected, setTagSelected] = useState("Todos")
+  const [tagSelected, setTagSelected] = useState("")
 
   function handleTagSelected(tag) {
     setTagSelected(tag)
   }
 
   useEffect(() => {
+    api
+      .get(`/note?title=${search}&tag=${tagSelected}`)
+      .then((response) => setNotes(response.data.notes))
+  }, [search, tagSelected])
+
+  useEffect(() => {
     api.get("/tag").then((response) => setTags(response.data.tags))
-    api.get("/note").then((response) => setNotes(response.data.notes))
   }, [])
 
   return (
@@ -40,8 +46,8 @@ export function Home() {
           <li>
             <TextButton
               title="Todos"
-              isOrange={tagSelected === "Todos"}
-              onClick={() => handleTagSelected("Todos")}
+              isOrange={tagSelected === ""}
+              onClick={() => handleTagSelected("")}
             />
           </li>
 
@@ -72,16 +78,17 @@ export function Home() {
       <main className="p-[6.4rem] flex flex-col gap-[6.4rem]">
         <Input
           icon={FiSearch}
-          id="q"
+          id="search"
           type="search"
           placeholder="Pesquisar pelo título"
+          onChange={(event) => setSearch(event.target.value)}
         />
 
         <Section title="Minhas notas">
           {notes.map((note, index) => (
             <Note key={String(index)} title={note.title}>
               {note.tags.map((tag, index) => (
-                <Tag key={String(index)} title={tag.name} />
+                <Tag key={String(index)} title={tag} />
               ))}
             </Note>
           ))}
