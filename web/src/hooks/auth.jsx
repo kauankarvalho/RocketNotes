@@ -34,9 +34,10 @@ export function AuthProvider({ children }) {
     newPassword,
     avatarFile,
   }) {
+    const isAvatarFileExist = avatarFile
     const isAvatarFileObject = typeof avatarFile === "object"
 
-    if (isAvatarFileObject) {
+    if (isAvatarFileExist && isAvatarFileObject) {
       const fileUploadForm = new FormData()
       fileUploadForm.append("avatar", avatarFile)
 
