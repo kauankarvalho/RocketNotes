@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
 import { api } from "../services/api.js"
+import { toast } from "react-toastify"
 import { useState } from "react"
 
 export function SignUp() {
@@ -20,11 +21,11 @@ export function SignUp() {
         password,
       })
       .then((response) => {
-        alert(response.data.message)
+        toast.success(response.data.message)
         navigate("/")
       })
       .catch((error) => {
-        alert(error.response.data.message)
+        toast.error(error.response.data.message)
       })
   }
 

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react"
+import { toast } from "react-toastify"
 import { api } from "../services/api"
 
 const AuthContext = createContext()
@@ -23,7 +24,7 @@ export function AuthProvider({ children }) {
         setData({ user, token })
       })
       .catch((error) => {
-        alert(error.response.data.message)
+        toast.error(error.response.data.message)
       })
   }
 
@@ -62,10 +63,10 @@ export function AuthProvider({ children }) {
         localStorage.setItem("@rocketnotes:user", JSON.stringify(user))
         setData({ user })
 
-        alert(response.data.message)
+        toast.success(response.data.message)
       })
       .catch((error) => {
-        alert(error.response.data.message)
+        toast.error(error.response.data.message)
       })
   }
 

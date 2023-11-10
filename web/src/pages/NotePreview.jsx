@@ -5,6 +5,7 @@ import { Header } from "../components/Header"
 import { Button } from "../components/Button"
 import { useEffect, useState } from "react"
 import { Tag } from "../components/Tag"
+import { toast } from "react-toastify"
 import { api } from "../services/api"
 
 export function NotePreview() {
@@ -16,7 +17,7 @@ export function NotePreview() {
 
   function handleDelete() {
     api.delete(`/note/${id}`).then((response) => {
-      alert(response.data.message)
+      toast.success(response.data.message)
       navigate("/")
     })
   }

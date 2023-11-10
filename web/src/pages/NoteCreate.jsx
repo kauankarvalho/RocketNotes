@@ -4,6 +4,7 @@ import { Section } from "../components/Section"
 import { Header } from "../components/Header"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
+import { toast } from "react-toastify"
 import { api } from "../services/api"
 import { useState } from "react"
 
@@ -46,11 +47,11 @@ export function NoteCreate() {
         tags,
       })
       .then((response) => {
-        alert(response.data.message)
+        toast.success(response.data.message)
         navigate("/")
       })
       .catch((error) => {
-        alert(error.response.data.message)
+        toast.error(error.response.data.message)
       })
   }
 
