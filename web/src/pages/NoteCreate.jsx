@@ -55,10 +55,10 @@ export function NoteCreate() {
   }
 
   return (
-    <div id="NoteCreate" className="h-screen grid grid-rows-[auto,_1fr]">
+    <div id="NoteCreate" className="h-full grid grid-rows-[auto,_1fr]">
       <Header />
 
-      <main className="flex flex-col items-center pt-[4rem] pb-[10rem] overflow-y-scroll">
+      <main className="flex flex-col items-center pt-[4rem] pb-[10rem] overflow-y-auto">
         <form
           id="noteForm"
           className="w-full max-w-[55rem] flex flex-col gap-[3.5rem]"

@@ -1,11 +1,11 @@
 import { TextButton } from "../components/TextButton"
+import { Link, useNavigate } from "react-router-dom"
 import { FiSearch, FiPlus } from "react-icons/fi"
 import { Section } from "../components/Section"
 import { Header } from "../components/Header"
 import { Input } from "../components/Input"
 import { useEffect, useState } from "react"
 import { Note } from "../components/Note"
-import { Link } from "react-router-dom"
 import { Tag } from "../components/Tag"
 import { api } from "../services/api"
 
@@ -16,8 +16,14 @@ export function Home() {
   const [tags, setTags] = useState([])
   const [tagSelected, setTagSelected] = useState("")
 
+  const navigate = useNavigate()
+
   function handleTagSelected(tag) {
     setTagSelected(tag)
+  }
+
+  function handleDetails(id) {
+    navigate(`/details/${id}`)
   }
 
   useEffect(() => {
@@ -86,7 +92,11 @@ export function Home() {
 
         <Section title="Minhas notas">
           {notes.map((note, index) => (
-            <Note key={String(index)} title={note.title}>
+            <Note
+              key={String(index)}
+              title={note.title}
+              onClick={() => handleDetails(note.id)}
+            >
               {note.tags.map((tag, index) => (
                 <Tag key={String(index)} title={tag} />
               ))}
