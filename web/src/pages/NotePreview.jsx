@@ -1,8 +1,8 @@
+import { useParams, useNavigate } from "react-router-dom"
 import { TextButton } from "../components/TextButton"
 import { Section } from "../components/Section"
 import { Header } from "../components/Header"
 import { Button } from "../components/Button"
-import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { Tag } from "../components/Tag"
 import { api } from "../services/api"
@@ -11,6 +11,19 @@ export function NotePreview() {
   const [data, setData] = useState(null)
 
   const { id } = useParams()
+
+  const navigate = useNavigate()
+
+  function handleDelete() {
+    api.delete(`/note/${id}`).then((response) => {
+      alert(response.data.message)
+      navigate("/")
+    })
+  }
+
+  function handleBack() {
+    navigate("/")
+  }
 
   useEffect(() => {
     api.get(`/note/${id}`).then((response) => setData(response.data))
@@ -24,7 +37,11 @@ export function NotePreview() {
         <main className="flex flex-col items-center pt-[6.5rem] pb-[10rem] overflow-auto">
           <div className="flex flex-col w-full max-w-[55rem]">
             <div className="text-end">
-              <TextButton title="Excluir a nota" isOrange />
+              <TextButton
+                title="Excluir a nota"
+                isOrange
+                onClick={handleDelete}
+              />
             </div>
 
             <div className="flex flex-col gap-[1.6rem] text-white my-[6.5rem]">
@@ -68,7 +85,7 @@ export function NotePreview() {
               )}
             </div>
 
-            <Button title="Voltar" />
+            <Button title="Voltar" onClick={handleBack} />
           </div>
         </main>
       )}
