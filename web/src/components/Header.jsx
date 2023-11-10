@@ -1,17 +1,24 @@
-import { RiShutDownLine } from "react-icons/ri"
+import { Link, useNavigate } from "react-router-dom"
 import avatarDefault from "../assets/avatar.svg"
+import { RiShutDownLine } from "react-icons/ri"
 import { useAuth } from "../hooks/auth"
-import { Link } from "react-router-dom"
 import { api } from "../services/api"
 
 export function Header() {
   const { user, signOut } = useAuth()
+
+  const navigate = useNavigate()
 
   let avatar = avatarDefault
 
   const userAvatarExists = user.avatar
   if (userAvatarExists) {
     avatar = `${api.defaults.baseURL}/file/${user.avatar}`
+  }
+
+  function handleSignOut() {
+    signOut()
+    navigate("/")
   }
 
   return (
@@ -38,7 +45,7 @@ export function Header() {
 
       <RiShutDownLine
         className="w-[3.6rem] h-[3.6rem] text-gray-500 cursor-pointer"
-        onClick={signOut}
+        onClick={handleSignOut}
       />
     </header>
   )
