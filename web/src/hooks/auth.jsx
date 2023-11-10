@@ -27,15 +27,21 @@ export function AuthProvider({ children }) {
       })
   }
 
-  function updateProfile({ name, email, password, newPassword, avatarFile }) {
-    const avatarFileExists = avatarFile
-    if (avatarFileExists) {
+  async function updateProfile({
+    name,
+    email,
+    password,
+    newPassword,
+    avatarFile,
+  }) {
+    const isAvatarFileObject = typeof avatarFile === "object"
+
+    if (isAvatarFileObject) {
       const fileUploadForm = new FormData()
       fileUploadForm.append("avatar", avatarFile)
 
-      api.patch("/user/avatar", fileUploadForm).then((response) => {
-        avatarFile = response.data.avatar
-      })
+      const response = await api.patch("/user/avatar", fileUploadForm)
+      avatarFile = response.data.avatar
     }
 
     api

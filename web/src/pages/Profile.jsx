@@ -23,7 +23,7 @@ export function Profile() {
   }
 
   const [avatar, setAvatar] = useState(avatarUrl)
-  const [avatarFile, setAvatarFile] = useState(null)
+  const [avatarFile, setAvatarFile] = useState(user.avatar)
 
   function handleChangeAvatar(event) {
     const file = event.target.files[0]
