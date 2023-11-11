@@ -1,4 +1,4 @@
-const AppError = require("../utils/AppError")
+const ResponseStatus = require("../utils/ResponseStatus")
 const { hash, compare } = require("bcryptjs")
 const prisma = require("../database")
 
@@ -8,7 +8,8 @@ class UserController {
 
     const isMissingRequiredData = !name || !email || !password
     if (isMissingRequiredData) {
-      throw new AppError(
+      throw new ResponseStatus(
+        "warning",
         "Por favor, preencha todos os campos obrigatórios",
         400,
       )
@@ -21,7 +22,7 @@ class UserController {
     })
 
     if (emailExists) {
-      throw new AppError("E-mail já cadastrado", 409)
+      throw new ResponseStatus("error", "E-mail já cadastrado", 409)
     }
 
     const hashedPassword = await hash(password, 8)
@@ -34,10 +35,7 @@ class UserController {
       },
     })
 
-    return response.status(201).json({
-      status: "Successful",
-      message: "Conta criada com sucesso",
-    })
+    throw new ResponseStatus("success", "Conta criada com sucesso", 201)
   }
 
   async update(request, response) {
@@ -58,12 +56,12 @@ class UserController {
 
     const isDuplicateEmail = emailExists && email !== user.email
     if (isDuplicateEmail) {
-      throw new AppError("E-mail já cadastrado", 409)
+      throw new ResponseStatus("error", "E-mail já cadastrado", 409)
     }
 
     const invalidPassword = !(await compare(password, user.password))
     if (invalidPassword) {
-      throw new AppError("Senha inválida", 401)
+      throw new ResponseStatus("error", "Senha inválida", 401)
     }
 
     let hashedPassword
@@ -82,10 +80,11 @@ class UserController {
       },
     })
 
-    return response.status(200).json({
-      status: "Successful",
-      message: "As informações da conta foram atualizadas com sucesso",
-    })
+    throw new ResponseStatus(
+      "success",
+      "As informações da conta foram atualizadas com sucesso",
+      200,
+    )
   }
 }
 

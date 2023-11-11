@@ -1,4 +1,4 @@
-const AppError = require("../utils/AppError")
+const ResponseStatus = require("../utils/ResponseStatus")
 const authConfig = require("../configs/auth")
 const { sign } = require("jsonwebtoken")
 const { compare } = require("bcryptjs")
@@ -24,7 +24,8 @@ class LoginController {
 
     const isMissingRequiredData = !email || !password
     if (isMissingRequiredData) {
-      throw new AppError(
+      throw new ResponseStatus(
+        "warning",
         "Por favor, preencha todos os campos obrigatórios",
         400,
       )
@@ -32,12 +33,12 @@ class LoginController {
 
     const userDoesNotExist = !user
     if (userDoesNotExist) {
-      throw new AppError("E-mail e/ou senha inválido", 401)
+      throw new ResponseStatus("error", "E-mail e/ou senha inválido", 401)
     }
 
     const invalidPassword = !(await compare(password, user.password))
     if (invalidPassword) {
-      throw new AppError("E-mail e/ou senha inválido", 401)
+      throw new ResponseStatus("error", "E-mail e/ou senha inválido", 401)
     }
 
     const token = sign({}, secret, {

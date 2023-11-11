@@ -1,5 +1,5 @@
 require("express-async-errors")
-const AppError = require("./utils/AppError")
+const ResponseStatus = require("./utils/ResponseStatus")
 const express = require("express")
 const routes = require("./routes")
 const cors = require("cors")
@@ -10,15 +10,15 @@ app.use(cors())
 app.use(express.json())
 app.use(routes)
 
-app.use((error, request, response, next) => {
-  if (error instanceof AppError) {
-    return response.status(error.statusCode).json({
-      status: "Error",
-      message: error.message,
+app.use((info, request, response, next) => {
+  if (info instanceof ResponseStatus) {
+    return response.status(info.statusCode).json({
+      status: info.status,
+      message: info.message,
     })
   }
 
-  console.log(error)
+  console.log(info)
 
   return response.status(500).json({
     status: "Error",

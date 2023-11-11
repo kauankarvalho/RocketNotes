@@ -25,7 +25,13 @@ export function SignUp() {
         navigate("/")
       })
       .catch((error) => {
-        toast.error(error.response.data.message)
+        if (error.response.data.status === "warning") {
+          toast.warning(error.response.data.message)
+        }
+
+        if (error.response.data.status === "error") {
+          toast.error(error.response.data.message)
+        }
       })
   }
 

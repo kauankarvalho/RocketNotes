@@ -24,7 +24,13 @@ export function AuthProvider({ children }) {
         setData({ user, token })
       })
       .catch((error) => {
-        toast.error(error.response.data.message)
+        if (error.response.data.status === "warning") {
+          toast.warning(error.response.data.message)
+        }
+
+        if (error.response.data.status === "error") {
+          toast.error(error.response.data.message)
+        }
       })
   }
 
@@ -66,7 +72,13 @@ export function AuthProvider({ children }) {
         toast.success(response.data.message)
       })
       .catch((error) => {
-        toast.error(error.response.data.message)
+        if (error.response.data.status === "warning") {
+          toast.warning(error.response.data.message)
+        }
+
+        if (error.response.data.status === "error") {
+          toast.error(error.response.data.message)
+        }
       })
   }
 

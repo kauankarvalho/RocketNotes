@@ -1,4 +1,4 @@
-const AppError = require("../utils/AppError")
+const AppError = require("../utils/ResponseStatus")
 const authConfig = require("../configs/auth")
 const { verify } = require("jsonwebtoken")
 

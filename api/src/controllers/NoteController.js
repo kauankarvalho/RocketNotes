@@ -1,4 +1,4 @@
-const AppError = require("../utils/AppError")
+const ResponseStatus = require("../utils/ResponseStatus")
 const prisma = require("../database")
 
 class NoteController {
@@ -74,7 +74,7 @@ class NoteController {
 
     const noteDoesNotExist = !note
     if (noteDoesNotExist) {
-      throw new AppError("A nota não foi encontrada", 404)
+      throw new ResponseStatus("error", "A nota não foi encontrada", 404)
     }
 
     let links = await prisma.link.findMany({
@@ -117,7 +117,8 @@ class NoteController {
 
     const isMissingRequiredData = !title || !description
     if (isMissingRequiredData) {
-      throw new AppError(
+      throw new ResponseStatus(
+        "warning",
         "Por favor, complete os campos de título e descrição",
         400,
       )
@@ -155,10 +156,7 @@ class NoteController {
       }
     }
 
-    return response.status(201).json({
-      status: "Successful",
-      message: "Anotação criada com sucesso",
-    })
+    throw new ResponseStatus("success", "Anotação criada com sucesso", 201)
   }
 
   async delete(request, response) {
@@ -170,10 +168,7 @@ class NoteController {
       },
     })
 
-    return response.status(200).json({
-      status: "Successful",
-      message: "Anotação excluida com sucesso",
-    })
+    throw new ResponseStatus("success", "Anotação excluida com sucesso", 200)
   }
 }
 

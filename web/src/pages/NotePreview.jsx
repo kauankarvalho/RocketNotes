@@ -27,7 +27,13 @@ export function NotePreview() {
   }
 
   useEffect(() => {
-    api.get(`/note/${id}`).then((response) => setData(response.data))
+    api
+      .get(`/note/${id}`)
+      .then((response) => setData(response.data))
+      .catch((error) => {
+        toast.error(error.response.data.message)
+        navigate("/")
+      })
   }, [])
 
   return (
