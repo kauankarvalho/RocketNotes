@@ -62,13 +62,13 @@ class NoteController {
   async show(request, response) {
     const { id } = request.params
 
-    const note = await prisma.note.findUnique({
+    let note = await prisma.note.findUnique({
       where: {
         id,
       },
-      select: {
-        title: true,
-        description: true,
+      include: {
+        links: true,
+        tags: true,
       },
     })
 
@@ -77,37 +77,15 @@ class NoteController {
       throw new ResponseStatus("error", "A nota não foi encontrada", 404)
     }
 
-    let links = await prisma.link.findMany({
-      where: {
-        note_id: id,
-      },
-      select: {
-        url: true,
-      },
-      orderBy: {
-        url: "asc",
-      },
-    })
-
-    let tags = await prisma.tag.findMany({
-      where: {
-        note_id: id,
-      },
-      select: {
-        name: true,
-      },
-      orderBy: {
-        name: "asc",
-      },
-    })
-
-    links = links.map((link) => link.url)
-    tags = tags.map((tag) => tag.name)
+    note = {
+      title: note.title,
+      description: note.description,
+      links: note.links.map((link) => link.url).sort(),
+      tags: note.tags.map((tag) => tag.name).sort(),
+    }
 
     return response.status(200).json({
-      ...note,
-      links,
-      tags,
+      note,
     })
   }
 
