@@ -54,14 +54,19 @@ class UserController {
       },
     })
 
-    const isDuplicateEmail = emailExist && email !== user.email
-    if (isDuplicateEmail) {
-      throw new ResponseStatus("error", "E-mail já cadastrado", 409)
+    const passwordDoesNotExist = !password
+    if(passwordDoesNotExist) {
+      throw new ResponseStatus("warning", "Por favor, insira sua senha", 400)
     }
 
     const invalidPassword = !(await compare(password, user.password))
     if (invalidPassword) {
       throw new ResponseStatus("error", "Senha inválida", 401)
+    }
+
+    const isDuplicateEmail = emailExist && email !== user.email
+    if (isDuplicateEmail) {
+      throw new ResponseStatus("error", "E-mail já cadastrado", 409)
     }
 
     let hashedPassword
