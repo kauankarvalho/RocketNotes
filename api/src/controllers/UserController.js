@@ -54,8 +54,17 @@ class UserController {
       },
     })
 
+    const isNameOrEmailEmpty = !name || !email
+    if (isNameOrEmailEmpty) {
+      throw new ResponseStatus(
+        "warning",
+        "Você precisa fornecer tanto um nome quanto um email",
+        400,
+      )
+    }
+
     const passwordDoesNotExist = !password
-    if(passwordDoesNotExist) {
+    if (passwordDoesNotExist) {
       throw new ResponseStatus("warning", "Por favor, insira sua senha", 400)
     }
 
