@@ -110,7 +110,8 @@ class NoteController {
       },
     })
 
-    if (links) {
+    const linksExist = links
+    if (linksExist) {
       for (const url of links) {
         await prisma.link.create({
           data: {
@@ -122,7 +123,8 @@ class NoteController {
       }
     }
 
-    if (tags) {
+    const tagsExist = tags
+    if (tagsExist) {
       for (const name of tags) {
         await prisma.tag.create({
           data: {

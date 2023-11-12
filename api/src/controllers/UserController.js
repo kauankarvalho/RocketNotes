@@ -15,13 +15,13 @@ class UserController {
       )
     }
 
-    const emailExists = await prisma.user.findUnique({
+    const emailExist = await prisma.user.findUnique({
       where: {
         email,
       },
     })
 
-    if (emailExists) {
+    if (emailExist) {
       throw new ResponseStatus("error", "E-mail já cadastrado", 409)
     }
 
@@ -48,13 +48,13 @@ class UserController {
       },
     })
 
-    const emailExists = await prisma.user.findUnique({
+    const emailExist = await prisma.user.findUnique({
       where: {
         email,
       },
     })
 
-    const isDuplicateEmail = emailExists && email !== user.email
+    const isDuplicateEmail = emailExist && email !== user.email
     if (isDuplicateEmail) {
       throw new ResponseStatus("error", "E-mail já cadastrado", 409)
     }

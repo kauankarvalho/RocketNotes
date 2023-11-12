@@ -14,8 +14,8 @@ class UserAvatarController {
       },
     })
 
-    const avatarExists = user.avatar
-    if (avatarExists) {
+    const avatarExist = user.avatar
+    if (avatarExist) {
       await diskStorage.deleteFile(user.avatar)
     }
 
