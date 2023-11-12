@@ -1,4 +1,4 @@
-const AppError = require("../utils/ResponseStatus")
+const ResponseStatus = require("../utils/ResponseStatus")
 const authConfig = require("../configs/auth")
 const { verify } = require("jsonwebtoken")
 
@@ -7,7 +7,7 @@ function ensureAuth(request, response, next) {
 
   const isAuthHeaderMissing = !authHeader
   if (isAuthHeaderMissing) {
-    throw new AppError("Token não informado", 401)
+    throw new ResponseStatus("error", "Token não informado", 401)
   }
 
   const [, token] = authHeader.split(" ")
@@ -21,7 +21,7 @@ function ensureAuth(request, response, next) {
 
     return next()
   } catch {
-    throw new AppError("Token inválido", 401)
+    throw new ResponseStatus("error", "Token inválido", 401)
   }
 }
 
