@@ -1,10 +1,10 @@
 const { Router } = require("express")
 
-const loginRouter = require("./login.router")
-const userRouter = require("./user.router")
-const fileRouter = require("./file.router")
-const noteRouter = require("./note.router")
-const tagRouter = require("./tag.router")
+const loginRouter = require("./loginRouter")
+const userRouter = require("./userRouter")
+const fileRouter = require("./fileRouter")
+const noteRouter = require("./noteRouter")
+const tagRouter = require("./tagRouter")
 
 const routes = Router()
 
