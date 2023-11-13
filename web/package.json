@@ -2,10 +2,9 @@
   "name": "@rocketnotes/web",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev": "vite"
   },
   "dependencies": {
     "axios": "^1.6.0",
