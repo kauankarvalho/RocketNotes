@@ -1,5 +1,8 @@
 {
   "name": "@rocketnotes/api",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.js --env production",
     "build": "npx prisma migrate deploy",
