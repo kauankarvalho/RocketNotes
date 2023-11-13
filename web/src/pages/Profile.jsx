@@ -15,6 +15,8 @@ export function Profile() {
   const [password, setPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
 
+  const [loading, setLoading] = useState(false)
+
   let avatarUrl = avatarDefault
 
   const userAvatarExists = user.avatar
@@ -34,7 +36,10 @@ export function Profile() {
   }
 
   function handleUpdate() {
-    updateProfile({ name, email, password, newPassword, avatarFile })
+    setLoading(true)
+    updateProfile({ name, email, password, newPassword, avatarFile }).then(() =>
+      setLoading(false),
+    )
   }
 
   return (
@@ -106,7 +111,7 @@ export function Profile() {
             </div>
           </div>
 
-          <Button title="Salvar" onClick={handleUpdate} />
+          <Button title="Salvar" loading={loading} onClick={handleUpdate} />
         </form>
       </main>
     </div>

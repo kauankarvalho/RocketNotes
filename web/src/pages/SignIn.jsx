@@ -9,10 +9,13 @@ export function SignIn() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
+  const [loading, setLoading] = useState(false)
+
   const { signIn } = useAuth()
 
   function handleSignIn() {
-    signIn({ email, password })
+    setLoading(true)
+    signIn({ email, password }).then(() => setLoading(false))
   }
 
   return (
@@ -51,7 +54,7 @@ export function SignIn() {
               />
             </div>
 
-            <Button title="Entrar" onClick={handleSignIn} />
+            <Button title="Entrar" loading={loading} onClick={handleSignIn} />
           </fieldset>
         </form>
 

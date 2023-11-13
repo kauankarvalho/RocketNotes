@@ -7,8 +7,8 @@ const AuthContext = createContext()
 export function AuthProvider({ children }) {
   const [data, setData] = useState({})
 
-  function signIn({ email, password }) {
-    api
+  async function signIn({ email, password }) {
+    return api
       .post("/login", {
         email,
         password,
@@ -52,7 +52,7 @@ export function AuthProvider({ children }) {
       avatarFile = response.data.avatar
     }
 
-    api
+    return api
       .put("/user", {
         name,
         email,

@@ -18,6 +18,8 @@ export function NoteCreate() {
   const [tags, setTags] = useState([])
   const [newTag, setNewTag] = useState("")
 
+  const [loading, setLoading] = useState(false)
+
   const navigate = useNavigate()
 
   function handleAddLink() {
@@ -39,6 +41,8 @@ export function NoteCreate() {
   }
 
   function handleCreateNote() {
+    setLoading(true)
+
     api
       .post("/note", {
         title,
@@ -48,12 +52,15 @@ export function NoteCreate() {
       })
       .then((response) => {
         toast.success(response.data.message)
+        setLoading(false)
         navigate("/")
       })
       .catch((error) => {
         if (error.response.data.status === "warning") {
           toast.warning(error.response.data.message)
         }
+
+        setLoading(false)
       })
   }
 
@@ -134,7 +141,12 @@ export function NoteCreate() {
         </form>
 
         <div className="w-full max-w-[55rem]">
-          <Button title="Salvar" form="noteForm" onClick={handleCreateNote} />
+          <Button
+            title="Salvar"
+            form="noteForm"
+            loading={loading}
+            onClick={handleCreateNote}
+          />
         </div>
       </main>
     </div>

@@ -11,9 +11,13 @@ export function SignUp() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
+  const [loading, setLoading] = useState(false)
+
   const navigate = useNavigate()
 
   function handleSignUp() {
+    setLoading(true)
+
     api
       .post("/user", {
         name,
@@ -22,6 +26,7 @@ export function SignUp() {
       })
       .then((response) => {
         toast.success(response.data.message)
+        setLoading(false)
         navigate("/")
       })
       .catch((error) => {
@@ -32,6 +37,8 @@ export function SignUp() {
         if (error.response.data.status === "error") {
           toast.error(error.response.data.message)
         }
+
+        setLoading(false)
       })
   }
 
@@ -80,7 +87,11 @@ export function SignUp() {
               />
             </div>
 
-            <Button title="Cadastrar" onClick={handleSignUp} />
+            <Button
+              title="Cadastrar"
+              loading={loading}
+              onClick={handleSignUp}
+            />
           </fieldset>
         </form>
 
