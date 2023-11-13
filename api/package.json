@@ -2,6 +2,7 @@
   "name": "@rocketnotes/api",
   "scripts": {
     "start": "pm2-runtime start ecosystem.config.js --env production",
+    "build": "npx prisma migrate deploy",
     "dev": "nodemon ./src/server.js"
   },
   "dependencies": {
