@@ -1,3 +1,4 @@
+require("dotenv/config")
 require("express-async-errors")
 const ResponseStatus = require("./utils/ResponseStatus")
 const express = require("express")
@@ -26,5 +27,5 @@ app.use((info, request, response, next) => {
   })
 })
 
-const port = 3000
+const port = process.env.SERVER_PORT || 3000
 app.listen(port, () => console.log(`Server ready at: http://localhost:${port}`))
