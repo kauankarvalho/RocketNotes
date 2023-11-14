@@ -15,7 +15,7 @@ export function SignIn() {
 
   function handleSignIn() {
     setLoading(true)
-    signIn({ email, password }).then(() => setLoading(false))
+    signIn({ email, password }).finally(() => setLoading(false))
   }
 
   return (

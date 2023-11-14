@@ -37,8 +37,8 @@ export function Profile() {
 
   function handleUpdate() {
     setLoading(true)
-    updateProfile({ name, email, password, newPassword, avatarFile }).then(() =>
-      setLoading(false),
+    updateProfile({ name, email, password, newPassword, avatarFile }).finally(
+      () => setLoading(false),
     )
   }
 

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react"
-import { toast } from "react-toastify"
+import { displayStatusMessage } from "../utils/displayStatusMessage"
 import { api } from "../services/api"
 
 const AuthContext = createContext()
@@ -24,13 +24,7 @@ export function AuthProvider({ children }) {
         setData({ user, token })
       })
       .catch((error) => {
-        if (error.response.data.status === "warning") {
-          toast.warning(error.response.data.message)
-        }
-
-        if (error.response.data.status === "error") {
-          toast.error(error.response.data.message)
-        }
+        displayStatusMessage(error.response)
       })
   }
 
@@ -69,16 +63,10 @@ export function AuthProvider({ children }) {
         localStorage.setItem("@rocketnotes:user", JSON.stringify(user))
         setData({ user })
 
-        toast.success(response.data.message)
+        displayStatusMessage(response)
       })
       .catch((error) => {
-        if (error.response.data.status === "warning") {
-          toast.warning(error.response.data.message)
-        }
-
-        if (error.response.data.status === "error") {
-          toast.error(error.response.data.message)
-        }
+        displayStatusMessage(error.response)
       })
   }
 

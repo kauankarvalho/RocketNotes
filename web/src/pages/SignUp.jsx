@@ -1,9 +1,9 @@
+import { displayStatusMessage } from "../utils/displayStatusMessage.js"
 import { FiUser, FiMail, FiLock } from "react-icons/fi"
 import { Link, useNavigate } from "react-router-dom"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
 import { api } from "../services/api.js"
-import { toast } from "react-toastify"
 import { useState } from "react"
 
 export function SignUp() {
@@ -25,21 +25,13 @@ export function SignUp() {
         password,
       })
       .then((response) => {
-        toast.success(response.data.message)
-        setLoading(false)
+        displayStatusMessage(response)
         navigate("/")
       })
       .catch((error) => {
-        if (error.response.data.status === "warning") {
-          toast.warning(error.response.data.message)
-        }
-
-        if (error.response.data.status === "error") {
-          toast.error(error.response.data.message)
-        }
-
-        setLoading(false)
+        displayStatusMessage(error.response)
       })
+      .finally(() => setLoading(false))
   }
 
   return (

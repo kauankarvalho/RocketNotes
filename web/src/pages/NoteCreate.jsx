@@ -1,10 +1,10 @@
+import { displayStatusMessage } from "../utils/displayStatusMessage"
 import { Link, useNavigate } from "react-router-dom"
 import { NoteItem } from "../components/NoteItem"
 import { Section } from "../components/Section"
 import { Header } from "../components/Header"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
-import { toast } from "react-toastify"
 import { api } from "../services/api"
 import { useState } from "react"
 
@@ -51,17 +51,13 @@ export function NoteCreate() {
         tags,
       })
       .then((response) => {
-        toast.success(response.data.message)
-        setLoading(false)
+        displayStatusMessage(response)
         navigate("/")
       })
       .catch((error) => {
-        if (error.response.data.status === "warning") {
-          toast.warning(error.response.data.message)
-        }
-
-        setLoading(false)
+        displayStatusMessage(error.response)
       })
+      .finally(() => setLoading(false))
   }
 
   return (

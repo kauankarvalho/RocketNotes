@@ -1,3 +1,4 @@
+import { displayStatusMessage } from "../utils/displayStatusMessage"
 import { useParams, useNavigate } from "react-router-dom"
 import { TextButton } from "../components/TextButton"
 import { Section } from "../components/Section"
@@ -5,7 +6,6 @@ import { Header } from "../components/Header"
 import { Button } from "../components/Button"
 import { useEffect, useState } from "react"
 import { Tag } from "../components/Tag"
-import { toast } from "react-toastify"
 import { api } from "../services/api"
 
 export function NotePreview() {
@@ -17,7 +17,7 @@ export function NotePreview() {
 
   function handleDelete() {
     api.delete(`/note/${id}`).then((response) => {
-      toast.success(response.data.message)
+      displayStatusMessage(response)
       navigate("/")
     })
   }
@@ -31,7 +31,7 @@ export function NotePreview() {
       .get(`/note/${id}`)
       .then((response) => setData(response.data))
       .catch((error) => {
-        toast.error(error.response.data.message)
+        displayStatusMessage(error.response)
         navigate("/")
       })
   }, [])
