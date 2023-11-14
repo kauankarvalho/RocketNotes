@@ -9,7 +9,7 @@ import { Tag } from "../components/Tag"
 import { api } from "../services/api"
 
 export function NotePreview() {
-  const [data, setData] = useState(null)
+  const [note, setNote] = useState(null)
 
   const { id } = useParams()
 
@@ -29,7 +29,7 @@ export function NotePreview() {
   useEffect(() => {
     api
       .get(`/note/${id}`)
-      .then((response) => setData(response.data))
+      .then((response) => setNote(response.data.note))
       .catch((error) => {
         displayStatusMessage(error.response)
         navigate("/")
@@ -40,7 +40,7 @@ export function NotePreview() {
     <div id="NotePreview" className="h-full grid grid-rows-[auto,_1fr]">
       <Header />
 
-      {data && (
+      {note && (
         <main className="flex flex-col items-center pt-[6.5rem] pb-[10rem] overflow-auto">
           <div className="flex flex-col w-full max-w-[55rem]">
             <div className="text-end">
@@ -53,19 +53,19 @@ export function NotePreview() {
 
             <div className="flex flex-col gap-[1.6rem] text-white my-[6.5rem]">
               <h1 className="text-[3.6rem]/[4.7rem] font-medium">
-                {data.title}
+                {note.title}
               </h1>
 
               <p className="text-[1.6rem]/[1.9rem] text-justify">
-                {data.description}
+                {note.description}
               </p>
             </div>
 
             <div className="flex flex-col gap-[3rem] mb-[10.6rem]">
-              {data.links.length > 0 && (
+              {note.links.length > 0 && (
                 <Section title="Links úteis">
                   <ul className="text-white flex flex-col gap-[1.5rem]">
-                    {data.links.map((link, index) => (
+                    {note.links.map((link, index) => (
                       <li key={String(index)}>
                         <a
                           className="text-white text-[1.6rem]/[1.9rem] cursor-pointer"
@@ -81,10 +81,10 @@ export function NotePreview() {
                 </Section>
               )}
 
-              {data.tags.length > 0 && (
+              {note.tags.length > 0 && (
                 <Section title="Marcadores">
                   <div className="flex flex-wrap gap-[0.6rem]">
-                    {data.tags.map((tag, index) => (
+                    {note.tags.map((tag, index) => (
                       <Tag key={String(index)} title={tag} />
                     ))}
                   </div>
