@@ -1,53 +1,17 @@
-const ResponseStatus = require("../utils/ResponseStatus")
-const authConfig = require("../configs/auth")
-const { sign } = require("jsonwebtoken")
-const { compare } = require("bcryptjs")
-const prisma = require("../database")
+const LoginCreateService = require("../services/LoginCreateService")
+const UserRepository = require("../repositories/UserRepository")
 
 class LoginController {
   async create(request, response) {
-    const { secret, expiresIn } = authConfig.jwt
     const { email, password } = request.body
 
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        password: true,
-        avatar: true,
-      },
+    const userRepository = new UserRepository()
+    const loginCreateService = new LoginCreateService(userRepository)
+
+    const { user, token } = await loginCreateService.execute({
+      email,
+      password,
     })
-
-    const isMissingRequiredData = !email || !password
-    if (isMissingRequiredData) {
-      throw new ResponseStatus(
-        "warning",
-        "Por favor, preencha todos os campos obrigatórios",
-        400,
-      )
-    }
-
-    const userDoesNotExist = !user
-    if (userDoesNotExist) {
-      throw new ResponseStatus("error", "E-mail e/ou senha inválido", 401)
-    }
-
-    const invalidPassword = !(await compare(password, user.password))
-    if (invalidPassword) {
-      throw new ResponseStatus("error", "E-mail e/ou senha inválido", 401)
-    }
-
-    const token = sign({}, secret, {
-      subject: user.id,
-      expiresIn,
-    })
-
-    delete user.id
-    delete user.password
 
     return response.status(200).json({
       user,

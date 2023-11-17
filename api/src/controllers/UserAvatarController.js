@@ -1,37 +1,18 @@
-const DiskStorage = require("../providers/DiskStorage")
-const prisma = require("../database")
+const UserAvatarUpdateService = require("../services/UserAvatarUpdateService")
+const UserRepository = require("../repositories/UserRepository")
 
 class UserAvatarController {
   async update(request, reponse) {
     const avatar = request.file.filename
     const { id } = request.user
 
-    const diskStorage = new DiskStorage()
+    const userRepository = new UserRepository()
+    const userAvatarUpdateService = new UserAvatarUpdateService(userRepository)
 
-    const user = await prisma.user.findUnique({
-      where: {
-        id,
-      },
-    })
-
-    const avatarExist = user.avatar
-    if (avatarExist) {
-      await diskStorage.deleteFile(user.avatar)
-    }
-
-    await diskStorage.saveFile(avatar)
-
-    const updatedUser = await prisma.user.update({
-      where: {
-        id,
-      },
-      data: {
-        avatar,
-      },
-    })
+    const updatedAvatar = await userAvatarUpdateService.execute({ id, avatar })
 
     return reponse.status(200).json({
-      avatar: updatedUser.avatar,
+      avatar: updatedAvatar,
     })
   }
 }

@@ -1,104 +1,41 @@
-const ResponseStatus = require("../utils/ResponseStatus")
-const { hash, compare } = require("bcryptjs")
-const prisma = require("../database")
+const UserCreateService = require("../services/UserCreateService")
+const UserUpdateService = require("../services/UserUpdateService")
+const UserRepository = require("../repositories/UserRepository")
 
 class UserController {
   async create(request, response) {
     const { name, email, password } = request.body
 
-    const isMissingRequiredData = !name || !email || !password
-    if (isMissingRequiredData) {
-      throw new ResponseStatus(
-        "warning",
-        "Por favor, preencha todos os campos obrigatórios",
-        400,
-      )
-    }
+    const userRepository = new UserRepository()
+    const userCreateService = new UserCreateService(userRepository)
 
-    const emailExist = await prisma.user.findUnique({
-      where: {
-        email,
-      },
+    await userCreateService.execute({ name, email, password })
+
+    return response.status(201).json({
+      status: "success",
+      message: "Conta criada com sucesso",
     })
-
-    if (emailExist) {
-      throw new ResponseStatus("error", "E-mail já cadastrado", 409)
-    }
-
-    const hashedPassword = await hash(password, 8)
-
-    await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-      },
-    })
-
-    throw new ResponseStatus("success", "Conta criada com sucesso", 201)
   }
 
   async update(request, response) {
     const { name, email, password, newPassword } = request.body
     const { id } = request.user
 
-    const user = await prisma.user.findUnique({
-      where: {
-        id,
-      },
+    const userRepository = new UserRepository()
+    const userUpdateService = new UserUpdateService(userRepository)
+
+    await userUpdateService.execute({
+      id,
+      name,
+      email,
+      password,
+      newPassword,
     })
 
-    const emailExist = await prisma.user.findUnique({
-      where: {
-        email,
-      },
+    return response.status(200).json({
+      status: "success",
+      message: "As informações da conta foram atualizadas com sucesso",
     })
-
-    const isNameOrEmailEmpty = !name || !email
-    if (isNameOrEmailEmpty) {
-      throw new ResponseStatus(
-        "warning",
-        "Você precisa fornecer tanto um nome quanto um email",
-        400,
-      )
-    }
-
-    const passwordDoesNotExist = !password
-    if (passwordDoesNotExist) {
-      throw new ResponseStatus("warning", "Por favor, insira sua senha", 400)
-    }
-
-    const invalidPassword = !(await compare(password, user.password))
-    if (invalidPassword) {
-      throw new ResponseStatus("error", "Senha inválida", 401)
-    }
-
-    const isDuplicateEmail = emailExist && email !== user.email
-    if (isDuplicateEmail) {
-      throw new ResponseStatus("error", "E-mail já cadastrado", 409)
-    }
-
-    let hashedPassword
-    if (newPassword) {
-      hashedPassword = await hash(newPassword, 8)
-    }
-
-    await prisma.user.update({
-      where: {
-        id,
-      },
-      data: {
-        name,
-        email,
-        password: hashedPassword || user.password,
-      },
-    })
-
-    throw new ResponseStatus(
-      "success",
-      "As informações da conta foram atualizadas com sucesso",
-      200,
-    )
   }
 }
 

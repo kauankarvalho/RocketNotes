@@ -1,23 +1,14 @@
-const prisma = require("../database")
+const TagRepository = require("../repositories/TagRepository")
+const TagIndexService = require("../services/TagIndexService")
 
 class TagController {
   async index(request, response) {
     const { id: user_id } = request.user
 
-    let tags = await prisma.tag.findMany({
-      where: {
-        user_id,
-      },
-      select: {
-        name: true,
-      },
-      orderBy: {
-        name: "asc",
-      },
-      distinct: ["name"],
-    })
+    const tagRepository = new TagRepository()
+    const tagIndexService = new TagIndexService(tagRepository)
 
-    tags = tags.map((tag) => tag.name)
+    const tags = await tagIndexService.execute(user_id)
 
     return response.status(200).json({
       tags,

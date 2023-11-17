@@ -1,4 +1,4 @@
-class ResponseStatus {
+class ErrorResponse {
   constructor(status, message, statusCode) {
     this.status = status
     this.message = message
@@ -6,4 +6,4 @@ class ResponseStatus {
   }
 }
 
-module.exports = ResponseStatus
+module.exports = ErrorResponse
