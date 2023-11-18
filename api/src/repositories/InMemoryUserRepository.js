@@ -47,7 +47,7 @@ class InMemoryUserRepository {
           name,
           email,
           password,
-          avatar,
+          avatar: null,
         }
       }
       return user
