@@ -109,15 +109,16 @@ class InMemoryNoteRepository {
   }
 
   async create({ user_id, title, description }) {
-    this.notes = [
-      {
-        id: crypto.randomUUID(),
-        user_id,
-        title,
-        description,
-      },
-      ...this.notes,
-    ]
+    const newNote = {
+      id: crypto.randomUUID(),
+      user_id,
+      title,
+      description,
+    }
+
+    this.notes = [newNote, ...this.notes]
+
+    return newNote
   }
 
   async delete(id) {
