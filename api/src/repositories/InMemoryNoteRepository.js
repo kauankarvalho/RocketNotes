@@ -55,7 +55,7 @@ class InMemoryNoteRepository {
     return note
   }
 
-  async getNotesByUserIdOrTitle({ user_id, title }) {
+  async getNotesByUserIdAndTitle({ user_id, title }) {
     const inMemoryTagRepository = new InMemoryTagRepository()
 
     let notes = this.notes.filter((note) => note.user_id === user_id)
@@ -73,7 +73,7 @@ class InMemoryNoteRepository {
     return notes
   }
 
-  async getNotesByUserIdTitleOrTag({ user_id, title, tag }) {
+  async getNotesByUserIdAndTitleOrTag({ user_id, title, tag }) {
     const inMemoryTagRepository = new InMemoryTagRepository()
 
     let notes = this.notes.filter((note) => note.user_id === user_id)

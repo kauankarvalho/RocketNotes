@@ -13,7 +13,7 @@ class NoteRepository {
     })
   }
 
-  async getNotesByUserIdOrTitle({ user_id, title }) {
+  async getNotesByUserIdAndTitle({ user_id, title }) {
     return await prisma.note.findMany({
       where: {
         user_id,
@@ -30,7 +30,7 @@ class NoteRepository {
     })
   }
 
-  async getNotesByUserIdTitleOrTag({ user_id, title, tag }) {
+  async getNotesByUserIdAndTitleOrTag({ user_id, title, tag }) {
     return await prisma.note.findMany({
       where: {
         user_id,

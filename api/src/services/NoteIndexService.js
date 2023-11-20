@@ -8,13 +8,13 @@ class NoteIndexService {
 
     const tagExist = tag
     if (tagExist) {
-      notes = await this.noteRepository.getNotesByUserIdTitleOrTag({
+      notes = await this.noteRepository.getNotesByUserIdAndTitleOrTag({
         user_id,
         title,
         tag,
       })
     } else {
-      notes = await this.noteRepository.getNotesByUserIdOrTitle({
+      notes = await this.noteRepository.getNotesByUserIdAndTitle({
         user_id,
         title,
       })
