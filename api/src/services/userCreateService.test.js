@@ -29,10 +29,20 @@ describe("UserCreateService", () => {
   })
 
   test("should reject user create with email already registered", () => {
+    const john = {
+      id: "5d006fea-072e-46fc-b275-68139c23a0d5",
+      name: "John",
+      email: "john@email.com",
+      password: "$2a$08$hiUvBe9tESYEj0.QuyChBOAwOio/AvoRTXjBxGmp4OS12uobAyTvy",
+      avatar: null,
+    }
+
+    inMemoryUserRepository.users = [john]
+
     expect(async () => {
       await userCreateService.execute({
-        name: "Henry",
-        email: "henry@email.com",
+        name: john.name,
+        email: john.email,
         password: "123",
       })
     }).rejects.toEqual(new ErrorResponse("error", "E-mail já cadastrado", 409))

@@ -7,17 +7,15 @@ const NoteCreateService = require("./NoteCreateService")
 const ErrorResponse = require("../utils/ErrorResponse")
 
 describe("NoteCreateService", () => {
-  let inMemoryUserRepository
-
   let inMemoryNoteRepository
   let inMemoryLinkRepository
   let inMemoryTagRepository
 
   let noteCreateService
 
-  beforeEach(() => {
-    inMemoryUserRepository = new InMemoryUserRepository()
+  let john
 
+  beforeEach(() => {
     inMemoryNoteRepository = new InMemoryNoteRepository()
     inMemoryLinkRepository = new InMemoryLinkRepository()
     inMemoryTagRepository = new InMemoryTagRepository()
@@ -27,14 +25,23 @@ describe("NoteCreateService", () => {
       linkRepository: inMemoryLinkRepository,
       tagRepository: inMemoryTagRepository,
     })
+
+    john = {
+      id: "5d006fea-072e-46fc-b275-68139c23a0d5",
+      name: "John",
+      email: "john@email.com",
+      password: "$2a$08$hiUvBe9tESYEj0.QuyChBOAwOio/AvoRTXjBxGmp4OS12uobAyTvy",
+      avatar: null,
+    }
+
+    const inMemoryUserRepository = new InMemoryUserRepository()
+    inMemoryUserRepository.users = [john]
   })
 
   test("should reject create note with mandatory fields blank", () => {
-    const james = inMemoryUserRepository.users[1]
-
     expect(async () => {
       await noteCreateService.execute({
-        user_id: james.id,
+        user_id: john.id,
         title: "",
         description: "",
         links: ["https://www.lipsum.com/"],
@@ -50,10 +57,8 @@ describe("NoteCreateService", () => {
   })
 
   test("should create a note with associated links and tags", async () => {
-    const james = inMemoryUserRepository.users[1]
-
     const newNote = {
-      user_id: james.id,
+      user_id: john.id,
       title: "What is Lorem Ipsum?",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",

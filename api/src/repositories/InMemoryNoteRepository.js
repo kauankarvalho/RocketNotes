@@ -19,22 +19,7 @@ function formatNotesWithTags({ notes, tags }) {
 }
 
 class InMemoryNoteRepository {
-  notes = [
-    {
-      id: "87f967c6-e17f-432a-90da-6f237d8f56b2",
-      user_id: "5d006fea-072e-46fc-b275-68139c23a0d5",
-      title: "React with Tailwindcss",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      id: "4e1105d2-050f-41ac-b78a-37df8a162b52",
-      user_id: "5d006fea-072e-46fc-b275-68139c23a0d5",
-      title: "JWT with Node",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-  ]
+  notes = []
 
   async getNoteById(id) {
     const inMemoryLinkRepository = new InMemoryLinkRepository()

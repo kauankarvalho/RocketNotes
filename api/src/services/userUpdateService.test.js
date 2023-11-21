@@ -7,15 +7,26 @@ describe("UserUpdateService", () => {
   let inMemoryUserRepository
   let userUpdateService
 
+  let john
+
   beforeEach(() => {
     inMemoryUserRepository = new InMemoryUserRepository()
     userUpdateService = new UserUpdateService(inMemoryUserRepository)
+
+    john = {
+      id: "5d006fea-072e-46fc-b275-68139c23a0d5",
+      name: "John",
+      email: "john@email.com",
+      password: "$2a$08$hiUvBe9tESYEj0.QuyChBOAwOio/AvoRTXjBxGmp4OS12uobAyTvy",
+      avatar: null,
+    }
+    inMemoryUserRepository.users = [john]
   })
 
   test("should reject update user with empty name and email fields", () => {
     expect(async () => {
       await userUpdateService.execute({
-        id: "5d006fea-072e-46fc-b275-68139c23a0d5",
+        id: john.id,
         name: "",
         email: "",
         password: "123",
@@ -33,9 +44,9 @@ describe("UserUpdateService", () => {
   test("should reject update user with empty password field", () => {
     expect(async () => {
       await userUpdateService.execute({
-        id: "5d006fea-072e-46fc-b275-68139c23a0d5",
-        name: "Henry",
-        email: "henry@email.com",
+        id: john.id,
+        name: john.name,
+        email: john.email,
         password: "",
         newPassword: "321",
       })
@@ -47,9 +58,9 @@ describe("UserUpdateService", () => {
   test("should reject update user with invalid password", () => {
     expect(async () => {
       await userUpdateService.execute({
-        id: "5d006fea-072e-46fc-b275-68139c23a0d5",
-        name: "Henry",
-        email: "henry@email.com",
+        id: john.id,
+        name: john.name,
+        email: john.email,
         password: "321",
         newPassword: "456",
       })
@@ -57,11 +68,20 @@ describe("UserUpdateService", () => {
   })
 
   test("should reject update user with email already registered", () => {
+    const henry = {
+      id: "cc493c37-41ab-4103-b891-bf2ae603c1a5",
+      name: "Henry",
+      email: "henry@email.com",
+      password: "$2a$08$hiUvBe9tESYEj0.QuyChBOAwOio/AvoRTXjBxGmp4OS12uobAyTvy",
+      avatar: null,
+    }
+    inMemoryUserRepository.users = [henry, ...inMemoryUserRepository.users]
+
     expect(async () => {
       await userUpdateService.execute({
-        id: "5d006fea-072e-46fc-b275-68139c23a0d5",
-        name: "Henry",
-        email: "james@email.com",
+        id: henry.id,
+        name: henry.name,
+        email: john.email,
         password: "123",
         newPassword: "",
       })
@@ -69,21 +89,22 @@ describe("UserUpdateService", () => {
   })
 
   test("should update user information and verify changes", async () => {
-    const updatedUserInfo = {
-      id: "5d006fea-072e-46fc-b275-68139c23a0d5",
-      name: "Henry Doe",
-      email: "henry.doe@email.com",
-      password: "123",
-      newPassword: "",
+    const newInformationsJohn = {
+      name: "John Doe",
+      email: "john.doe@email.com",
     }
 
-    await userUpdateService.execute(updatedUserInfo)
+    await userUpdateService.execute({
+      id: john.id,
+      name: newInformationsJohn.name,
+      email: newInformationsJohn.email,
+      password: "123",
+      newPassword: "",
+    })
 
-    const updatedUser = await inMemoryUserRepository.getUserById(
-      updatedUserInfo.id,
-    )
+    const updatedUser = await inMemoryUserRepository.getUserById(john.id)
 
-    expect(updatedUser.name).toEqual(updatedUserInfo.name)
-    expect(updatedUser.email).toEqual(updatedUserInfo.email)
+    expect(updatedUser.name).toEqual(newInformationsJohn.name)
+    expect(updatedUser.email).toEqual(newInformationsJohn.email)
   })
 })
