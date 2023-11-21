@@ -7,7 +7,7 @@
     "start": "pm2-runtime start ecosystem.config.js --env production",
     "build": "npm i && npx prisma migrate deploy",
     "test": "vitest",
-    "dev": "nodemon ./src/server.js"
+    "dev": "node --watch ./src/server.js"
   },
   "dependencies": {
     "@prisma/client": "^5.4.2",
@@ -21,7 +21,6 @@
     "pm2": "^5.3.0"
   },
   "devDependencies": {
-    "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
     "prisma": "^5.4.2",
     "vitest": "^0.34.6"
