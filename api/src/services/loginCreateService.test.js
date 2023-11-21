@@ -7,9 +7,19 @@ describe("LoginCreateService", () => {
   let inMemoryUserRepository
   let loginCreateService
 
+  let john
+
   beforeEach(() => {
     inMemoryUserRepository = new InMemoryUserRepository()
     loginCreateService = new LoginCreateService(inMemoryUserRepository)
+
+    john = {
+      id: "5d006fea-072e-46fc-b275-68139c23a0d5",
+      name: "John",
+      email: "john@email.com",
+      password: "$2a$08$hiUvBe9tESYEj0.QuyChBOAwOio/AvoRTXjBxGmp4OS12uobAyTvy",
+      avatar: null,
+    }
   })
 
   test("should reject login with mandatory fields blank", () => {
@@ -30,7 +40,7 @@ describe("LoginCreateService", () => {
   test("should reject login with invalid email", () => {
     expect(async () => {
       await loginCreateService.execute({
-        email: "john@email.com",
+        email: john.email,
         password: "123",
       })
     }).rejects.toEqual(
@@ -39,14 +49,6 @@ describe("LoginCreateService", () => {
   })
 
   test("should reject login with invalid password", () => {
-    const john = {
-      id: "5d006fea-072e-46fc-b275-68139c23a0d5",
-      name: "John",
-      email: "john@email.com",
-      password: "$2a$08$hiUvBe9tESYEj0.QuyChBOAwOio/AvoRTXjBxGmp4OS12uobAyTvy",
-      avatar: null,
-    }
-
     inMemoryUserRepository.users = [john]
 
     expect(async () => {
@@ -60,14 +62,6 @@ describe("LoginCreateService", () => {
   })
 
   test("should return a user object and a token string", async () => {
-    const john = {
-      id: "5d006fea-072e-46fc-b275-68139c23a0d5",
-      name: "John",
-      email: "john@email.com",
-      password: "$2a$08$hiUvBe9tESYEj0.QuyChBOAwOio/AvoRTXjBxGmp4OS12uobAyTvy",
-      avatar: null,
-    }
-
     inMemoryUserRepository.users = [john]
 
     const { user, token } = await loginCreateService.execute({
