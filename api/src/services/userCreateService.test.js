@@ -1,66 +1,65 @@
 const InMemoryUserRepository = require("../repositories/InMemoryUserRepository")
 const UserCreateService = require("../services/UserCreateService")
-import { describe, beforeEach, test, expect } from "vitest"
 const ErrorResponse = require("../utils/ErrorResponse")
+import { beforeEach, test, expect } from "vitest"
+const crypto = require("node:crypto")
 
-describe("UserCreateService", () => {
-  let inMemoryUserRepository
-  let userCreateService
+let inMemoryUserRepository
+let userCreateService
 
-  beforeEach(() => {
-    inMemoryUserRepository = new InMemoryUserRepository()
-    userCreateService = new UserCreateService(inMemoryUserRepository)
-  })
+beforeEach(() => {
+  inMemoryUserRepository = new InMemoryUserRepository()
+  userCreateService = new UserCreateService(inMemoryUserRepository)
+})
 
-  test("should reject user create with mandatory fields blank", () => {
-    expect(async () => {
-      await userCreateService.execute({
-        name: "",
-        email: "",
-        password: "",
-      })
-    }).rejects.toEqual(
-      new ErrorResponse(
-        "warning",
-        "Por favor, preencha todos os campos obrigatórios",
-        400,
-      ),
-    )
-  })
+test("should reject user create with mandatory fields blank", () => {
+  expect(async () => {
+    await userCreateService.execute({
+      name: "",
+      email: "",
+      password: "",
+    })
+  }).rejects.toEqual(
+    new ErrorResponse(
+      "warning",
+      "Por favor, preencha todos os campos obrigatórios",
+      400,
+    ),
+  )
+})
 
-  test("should reject user create with email already registered", () => {
-    const john = {
-      id: "5d006fea-072e-46fc-b275-68139c23a0d5",
-      name: "John",
-      email: "john@email.com",
-      password: "$2a$08$hiUvBe9tESYEj0.QuyChBOAwOio/AvoRTXjBxGmp4OS12uobAyTvy",
-      avatar: null,
-    }
+test("should reject user create with email already registered", () => {
+  const john = {
+    id: crypto.randomUUID(),
+    name: "John",
+    email: "john@email.com",
+    password: "$2a$08$hiUvBe9tESYEj0.QuyChBOAwOio/AvoRTXjBxGmp4OS12uobAyTvy",
+    avatar: null,
+  }
 
-    inMemoryUserRepository.users = [john]
+  inMemoryUserRepository.users = [john]
 
-    expect(async () => {
-      await userCreateService.execute({
-        name: john.name,
-        email: john.email,
-        password: "123",
-      })
-    }).rejects.toEqual(new ErrorResponse("error", "E-mail já cadastrado", 409))
-  })
-
-  test("should create a user and retrieve it from the database", async () => {
-    const newUser = {
-      name: "John",
-      email: "john@email.com",
+  expect(async () => {
+    await userCreateService.execute({
+      name: john.name,
+      email: john.email,
       password: "123",
-    }
+    })
+  }).rejects.toEqual(new ErrorResponse("error", "E-mail já cadastrado", 409))
+})
 
-    await userCreateService.execute(newUser)
+test("should create a user and retrieve it from the database", async () => {
+  const newUser = {
+    name: "John",
+    email: "john@email.com",
+    password: "123",
+  }
 
-    const retrievedUser = await inMemoryUserRepository.getUserByEmail(
-      newUser.email,
-    )
-    
-    expect(retrievedUser.email).toEqual(newUser.email)
-  })
+  await userCreateService.execute(newUser)
+
+  const retrievedUser = await inMemoryUserRepository.getUserByEmail(
+    newUser.email,
+  )
+
+  expect(retrievedUser.email).toEqual(newUser.email)
 })
