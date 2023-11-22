@@ -15,7 +15,19 @@ export function SignIn() {
 
   function handleSignIn() {
     setLoading(true)
-    signIn({ email, password }).finally(() => setLoading(false))
+
+    signIn({ email, password })
+      .catch(() => {
+        setEmail("")
+        setPassword("")
+      })
+      .finally(() => setLoading(false))
+  }
+
+  function handleEnter(event) {
+    if (event.key === "Enter") {
+      handleSignIn()
+    }
   }
 
   return (
@@ -43,6 +55,8 @@ export function SignIn() {
                 id="email"
                 type="email"
                 placeholder="E-mail"
+                value={email}
+                onKeyDown={handleEnter}
                 onChange={(event) => setEmail(event.target.value)}
               />
               <Input
@@ -50,6 +64,8 @@ export function SignIn() {
                 id="password"
                 type="password"
                 placeholder="Senha"
+                value={password}
+                onKeyDown={handleEnter}
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>

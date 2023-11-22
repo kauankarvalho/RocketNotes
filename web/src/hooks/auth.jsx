@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
         setData({ user, token })
       })
       .catch((error) => {
-        displayStatusMessage(error.response)
+        throw displayStatusMessage(error.response)
       })
   }
 
