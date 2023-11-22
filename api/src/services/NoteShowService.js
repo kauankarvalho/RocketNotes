@@ -10,7 +10,11 @@ class NoteShowService {
 
     const noteDoesNotExist = !note
     if (noteDoesNotExist) {
-      throw new ErrorResponse("error", "A nota não foi encontrada", 404)
+      throw new ErrorResponse({
+        statusCode: 404,
+        status: "error",
+        message: "A nota não foi encontrada",
+      })
     }
 
     note = {

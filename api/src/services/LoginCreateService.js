@@ -11,23 +11,31 @@ class LoginCreateService {
   async execute({ email, password }) {
     const isMissingRequiredData = !email || !password
     if (isMissingRequiredData) {
-      throw new ErrorResponse(
-        "warning",
-        "Por favor, preencha todos os campos obrigatórios",
-        400,
-      )
+      throw new ErrorResponse({
+        statusCode: 400,
+        status: "warning",
+        message: "Por favor, preencha todos os campos obrigatórios",
+      })
     }
 
     const user = await this.userRepository.getUserByEmail(email)
 
     const userDoesNotExist = !user
     if (userDoesNotExist) {
-      throw new ErrorResponse("error", "E-mail e/ou senha inválido", 401)
+      throw new ErrorResponse({
+        statusCode: 401,
+        status: "error",
+        message: "E-mail ou senha inválido",
+      })
     }
 
     const invalidPassword = !(await compare(password, user.password))
     if (invalidPassword) {
-      throw new ErrorResponse("error", "E-mail e/ou senha inválido", 401)
+      throw new ErrorResponse({
+        statusCode: 401,
+        status: "error",
+        message: "E-mail ou senha inválido",
+      })
     }
 
     const { secret, expiresIn } = authConfig.jwt

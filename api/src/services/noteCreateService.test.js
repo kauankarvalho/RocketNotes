@@ -36,11 +36,12 @@ test("should reject create note with mandatory fields blank", () => {
       tags: ["Lorem Ipsum", "Generator"],
     })
   }).rejects.toEqual(
-    new ErrorResponse(
-      "warning",
-      "Por favor, complete os campos de título e descrição",
-      400,
-    ),
+    new ErrorResponse({
+      statusCode: 400,
+      status: "warning",
+      field: ["title", "description"],
+      message: "Por favor, complete os campos de título e descrição",
+    }),
   )
 })
 

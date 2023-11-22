@@ -28,11 +28,11 @@ test("should reject login with mandatory fields blank", () => {
       password: "",
     })
   }).rejects.toEqual(
-    new ErrorResponse(
-      "warning",
-      "Por favor, preencha todos os campos obrigatórios",
-      400,
-    ),
+    new ErrorResponse({
+      statusCode: 400,
+      status: "warning",
+      message: "Por favor, preencha todos os campos obrigatórios",
+    }),
   )
 })
 
@@ -43,7 +43,11 @@ test("should reject login with invalid email", () => {
       password: "123",
     })
   }).rejects.toEqual(
-    new ErrorResponse("error", "E-mail e/ou senha inválido", 401),
+    new ErrorResponse({
+      statusCode: 401,
+      status: "error",
+      message: "E-mail ou senha inválido",
+    }),
   )
 })
 
@@ -56,7 +60,11 @@ test("should reject login with invalid password", () => {
       password: "321",
     })
   }).rejects.toEqual(
-    new ErrorResponse("error", "E-mail e/ou senha inválido", 401),
+    new ErrorResponse({
+      statusCode: 401,
+      status: "error",
+      message: "E-mail ou senha inválido",
+    }),
   )
 })
 

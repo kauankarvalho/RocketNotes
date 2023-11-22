@@ -15,6 +15,7 @@ app.use((error, request, response, next) => {
   if (error instanceof ErrorResponse) {
     return response.status(error.statusCode).json({
       status: error.status,
+      field: error.field,
       message: error.message,
     })
   }

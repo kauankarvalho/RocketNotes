@@ -9,16 +9,21 @@ class UserCreateService {
   async execute({ name, email, password }) {
     const isMissingRequiredData = !name || !email || !password
     if (isMissingRequiredData) {
-      throw new ErrorResponse(
-        "warning",
-        "Por favor, preencha todos os campos obrigatórios",
-        400,
-      )
+      throw new ErrorResponse({
+        statusCode: 400,
+        status: "warning",
+        message: "Por favor, preencha todos os campos obrigatórios",
+      })
     }
 
     const emailExist = await this.userRepository.getUserByEmail(email)
     if (emailExist) {
-      throw new ErrorResponse("error", "E-mail já cadastrado", 409)
+      throw new ErrorResponse({
+        statusCode: 409,
+        status: "error",
+        field: "email",
+        message: "E-mail já cadastrado",
+      })
     }
 
     const hashedPassword = await hash(password, 8)

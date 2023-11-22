@@ -32,11 +32,12 @@ test("should reject update user with empty name and email fields", () => {
       newPassword: "321",
     })
   }).rejects.toEqual(
-    new ErrorResponse(
-      "warning",
-      "Você precisa fornecer tanto um nome quanto um email",
-      400,
-    ),
+    new ErrorResponse({
+      statusCode: 400,
+      status: "warning",
+      field: ["name", "email"],
+      message: "Você precisa fornecer tanto um nome quanto um email",
+    }),
   )
 })
 
@@ -50,7 +51,12 @@ test("should reject update user with empty password field", () => {
       newPassword: "321",
     })
   }).rejects.toEqual(
-    new ErrorResponse("warning", "Por favor, insira sua senha", 400),
+    new ErrorResponse({
+      statusCode: 400,
+      status: "warning",
+      field: "password",
+      message: "Por favor, insira sua senha",
+    }),
   )
 })
 
@@ -63,7 +69,14 @@ test("should reject update user with invalid password", () => {
       password: "321",
       newPassword: "456",
     })
-  }).rejects.toEqual(new ErrorResponse("error", "Senha inválida", 401))
+  }).rejects.toEqual(
+    new ErrorResponse({
+      statusCode: 401,
+      status: "error",
+      field: "password",
+      message: "Senha inválida",
+    }),
+  )
 })
 
 test("should reject update user with email already registered", () => {
@@ -84,7 +97,14 @@ test("should reject update user with email already registered", () => {
       password: "123",
       newPassword: "",
     })
-  }).rejects.toEqual(new ErrorResponse("error", "E-mail já cadastrado", 409))
+  }).rejects.toEqual(
+    new ErrorResponse({
+      statusCode: 409,
+      status: "error",
+      field: "email",
+      message: "E-mail já cadastrado",
+    }),
+  )
 })
 
 test("should update user information and verify changes", async () => {

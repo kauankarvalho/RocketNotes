@@ -20,11 +20,11 @@ test("should reject user create with mandatory fields blank", () => {
       password: "",
     })
   }).rejects.toEqual(
-    new ErrorResponse(
-      "warning",
-      "Por favor, preencha todos os campos obrigatórios",
-      400,
-    ),
+    new ErrorResponse({
+      statusCode: 400,
+      status: "warning",
+      message: "Por favor, preencha todos os campos obrigatórios",
+    }),
   )
 })
 
@@ -45,7 +45,14 @@ test("should reject user create with email already registered", () => {
       email: john.email,
       password: "123",
     })
-  }).rejects.toEqual(new ErrorResponse("error", "E-mail já cadastrado", 409))
+  }).rejects.toEqual(
+    new ErrorResponse({
+      statusCode: 409,
+      status: "error",
+      field: "email",
+      message: "E-mail já cadastrado",
+    }),
+  )
 })
 
 test("should create a user and retrieve it from the database", async () => {

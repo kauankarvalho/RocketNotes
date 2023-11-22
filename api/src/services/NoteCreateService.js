@@ -10,11 +10,12 @@ class NoteCreateService {
   async execute({ user_id, title, description, links, tags }) {
     const isMissingRequiredData = !title || !description
     if (isMissingRequiredData) {
-      throw new ErrorResponse(
-        "warning",
-        "Por favor, complete os campos de título e descrição",
-        400,
-      )
+      throw new ErrorResponse({
+        statusCode: 400,
+        status: "warning",
+        field: ["title", "description"],
+        message: "Por favor, complete os campos de título e descrição",
+      })
     }
 
     const note = await this.noteRepository.create({

@@ -1,8 +1,9 @@
 class ErrorResponse {
-  constructor(status, message, statusCode) {
-    this.status = status
-    this.message = message
+  constructor({ statusCode, status, field, message }) {
     this.statusCode = statusCode
+    this.status = status
+    this.field = field
+    this.message = message
   }
 }
 
