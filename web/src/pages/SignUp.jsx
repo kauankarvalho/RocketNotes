@@ -29,9 +29,11 @@ export function SignUp() {
         navigate("/")
       })
       .catch((error) => {
-        displayStatusMessage(error.response)
+        const statusMessage = displayStatusMessage(error.response)
 
-        if (error.response.data.status === "error") {
+        const isStatusError = statusMessage.status === "error"
+        const isFieldEmail = statusMessage.field === "email"
+        if (isStatusError && isFieldEmail) {
           setEmail("")
         }
       })
@@ -39,7 +41,8 @@ export function SignUp() {
   }
 
   function handleEnter(event) {
-    if (event.key === "Enter") {
+    const isEnterKey = event.key === "Enter"
+    if (isEnterKey) {
       handleSignUp()
     }
   }
