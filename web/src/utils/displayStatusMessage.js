@@ -9,12 +9,21 @@ export function displayStatusMessage(response) {
   switch (response.data.status) {
     case "success":
       toast.success(response.data.message)
-      break
+
+      return { status: response.data.status }
     case "warning":
       toast.warning(response.data.message)
-      break
+
+      return {
+        status: response.data.status,
+        field: response.data.field,
+      }
     case "error":
       toast.error(response.data.message)
-      break
+
+      return {
+        status: response.data.status,
+        field: response.data.field,
+      }
   }
 }
