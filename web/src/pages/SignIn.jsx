@@ -17,15 +17,19 @@ export function SignIn() {
     setLoading(true)
 
     signIn({ email, password })
-      .catch(() => {
-        setEmail("")
-        setPassword("")
+      .catch((error) => {
+        const isStatusError = error.status === "error"
+        if (isStatusError) {
+          setEmail("")
+          setPassword("")
+        }
       })
       .finally(() => setLoading(false))
   }
 
   function handleEnter(event) {
-    if (event.key === "Enter") {
+    const isEnterKey = event.key === "Enter"
+    if (isEnterKey) {
       handleSignIn()
     }
   }
