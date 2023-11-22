@@ -30,8 +30,18 @@ export function SignUp() {
       })
       .catch((error) => {
         displayStatusMessage(error.response)
+
+        if (error.response.data.status === "error") {
+          setEmail("")
+        }
       })
       .finally(() => setLoading(false))
+  }
+
+  function handleEnter(event) {
+    if (event.key === "Enter") {
+      handleSignUp()
+    }
   }
 
   return (
@@ -61,6 +71,8 @@ export function SignUp() {
                 id="name"
                 type="text"
                 placeholder="Nome"
+                value={name}
+                onKeyDown={handleEnter}
                 onChange={(event) => setName(event.target.value)}
               />
               <Input
@@ -68,6 +80,8 @@ export function SignUp() {
                 id="email"
                 type="email"
                 placeholder="E-mail"
+                value={email}
+                onKeyDown={handleEnter}
                 onChange={(event) => setEmail(event.target.value)}
               />
               <Input
@@ -75,6 +89,8 @@ export function SignUp() {
                 id="password"
                 type="password"
                 placeholder="Senha"
+                value={password}
+                onKeyDown={handleEnter}
                 onChange={(event) => setPassword(event.target.value)}
               />
             </div>
