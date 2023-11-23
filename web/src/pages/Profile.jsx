@@ -37,9 +37,28 @@ export function Profile() {
 
   function handleUpdate() {
     setLoading(true)
-    updateProfile({ name, email, password, newPassword, avatarFile }).finally(
-      () => setLoading(false),
-    )
+    updateProfile({ name, email, password, newPassword, avatarFile })
+      .catch((error) => {
+        const isStatusError = error.status === "error"
+
+        const isEmailField = error.field === "email"
+        if (isStatusError && isEmailField) {
+          setEmail("")
+        }
+
+        const isPasswordField = error.field === "password"
+        if (isStatusError && isPasswordField) {
+          setPassword("")
+        }
+      })
+      .finally(() => setLoading(false))
+  }
+
+  function handleEnter(event) {
+    const isEnterKey = event.key === "Enter"
+    if (isEnterKey) {
+      handleUpdate()
+    }
   }
 
   return (
@@ -81,6 +100,7 @@ export function Profile() {
                 type="text"
                 placeholder="Nome"
                 value={name}
+                onKeyDown={handleEnter}
                 onChange={(event) => setName(event.target.value)}
               />
               <Input
@@ -89,6 +109,7 @@ export function Profile() {
                 type="email"
                 placeholder="Novo E-mail"
                 value={email}
+                onKeyDown={handleEnter}
                 onChange={(event) => setEmail(event.target.value)}
               />
             </div>
@@ -99,6 +120,8 @@ export function Profile() {
                 id="password"
                 type="password"
                 placeholder="Senha atual"
+                value={password}
+                onKeyDown={handleEnter}
                 onChange={(event) => setPassword(event.target.value)}
               />
               <Input
@@ -106,6 +129,8 @@ export function Profile() {
                 id="newPassword"
                 type="password"
                 placeholder="Nova senha"
+                value={newPassword}
+                onKeyDown={handleEnter}
                 onChange={(event) => setNewPassword(event.target.value)}
               />
             </div>

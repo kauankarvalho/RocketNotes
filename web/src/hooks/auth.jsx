@@ -66,7 +66,7 @@ export function AuthProvider({ children }) {
         displayStatusMessage(response)
       })
       .catch((error) => {
-        displayStatusMessage(error.response)
+        throw displayStatusMessage(error.response)
       })
   }
 
