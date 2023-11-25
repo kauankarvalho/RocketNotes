@@ -45,6 +45,11 @@ export function NoteCreate() {
   }
 
   function handleAddTag() {
+    const newTagEmpty = newTag === ""
+    if (newTagEmpty) {
+      return toast.warning("Por favor, insira um marcador")
+    }
+
     setTags((prevState) => [...prevState, newTag])
     setNewTag("")
   }
