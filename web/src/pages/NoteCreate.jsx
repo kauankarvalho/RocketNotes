@@ -36,6 +36,12 @@ export function NoteCreate() {
       return toast.warning("Link inválido")
     }
 
+    const linkDuplicate = links.find((link) => link === newLink)
+    if (linkDuplicate) {
+      setNewLink("")
+      return toast.warning("Este link já foi inserido")
+    }
+
     setLinks((prevState) => [...prevState, newLink])
     setNewLink("")
   }
@@ -48,6 +54,12 @@ export function NoteCreate() {
     const newTagEmpty = newTag === ""
     if (newTagEmpty) {
       return toast.warning("Por favor, insira um marcador")
+    }
+
+    const tagDuplicate = tags.find((tag) => tag === newTag)
+    if (tagDuplicate) {
+      setNewTag("")
+      return toast.warning("Esta tag já foi inserida")
     }
 
     setTags((prevState) => [...prevState, newTag])
