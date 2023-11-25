@@ -19,7 +19,7 @@ export function Modal({
 
           <div className="flex gap-[1rem]">
             <button
-              className="bg-[rgb(19,_19,_25)] w-[14rem] h-[16rem] flex flex-col justify-center items-center gap-[0.5rem] rounded-[0.5rem]"
+              className="bg-orange w-[14rem] h-[16rem] flex flex-col justify-center items-center gap-[0.5rem] rounded-[0.5rem]"
               onClick={() => setModalOpen(!isOpen)}
             >
               <MdOutlineCancelPresentation className="w-[3.5rem] h-[3.5rem] text-white" />
@@ -27,7 +27,7 @@ export function Modal({
             </button>
 
             <button
-              className="bg-[rgb(19,_19,_25)] w-[14rem] h-[16rem] flex flex-col justify-center items-center gap-[0.5rem] rounded-[0.5rem]"
+              className="bg-gray-950 w-[14rem] h-[16rem] flex flex-col justify-center items-center gap-[0.5rem] rounded-[0.5rem]"
               onClick={handle}
             >
               <Icon className="w-[3.5rem] h-[3.5rem] text-white" />
