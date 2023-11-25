@@ -5,10 +5,13 @@ import { Section } from "../components/Section"
 import { Header } from "../components/Header"
 import { Button } from "../components/Button"
 import { useEffect, useState } from "react"
+import { TbNotesOff } from "react-icons/tb"
+import { Modal } from "../components/Modal"
 import { Tag } from "../components/Tag"
 import { api } from "../services/api"
 
 export function NotePreview() {
+  const [modalOpen, setModalOpen] = useState(false)
   const [note, setNote] = useState(null)
 
   const { id } = useParams()
@@ -47,7 +50,7 @@ export function NotePreview() {
               <TextButton
                 title="Excluir a nota"
                 isOrange
-                onClick={handleDelete}
+                onClick={() => setModalOpen(!modalOpen)}
               />
             </div>
 
@@ -96,6 +99,15 @@ export function NotePreview() {
           </div>
         </main>
       )}
+
+      <Modal
+        title={"Quer mesmo excluir?"}
+        icon={TbNotesOff}
+        buttonName={"Excluir"}
+        handle={handleDelete}
+        isOpen={modalOpen}
+        setModalOpen={setModalOpen}
+      />
     </div>
   )
 }
