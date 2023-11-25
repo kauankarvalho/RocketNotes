@@ -14,6 +14,7 @@ export default {
     },
     colors: {
       transparent: "transparent",
+      black: "#000000",
       white: "#F4EDE8",
       orange: "#FF9000",
       red: "#FF002E",
