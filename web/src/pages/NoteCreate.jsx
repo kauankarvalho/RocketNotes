@@ -5,6 +5,7 @@ import { Section } from "../components/Section"
 import { Header } from "../components/Header"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
+import { toast } from "react-toastify"
 import { api } from "../services/api"
 import { useState } from "react"
 
@@ -23,6 +24,18 @@ export function NoteCreate() {
   const navigate = useNavigate()
 
   function handleAddLink() {
+    const newLinkEmpty = newLink === ""
+    if (newLinkEmpty) {
+      return toast.warning("Por favor, insira um link")
+    }
+
+    const linkValidator = /^https?:\/\/[^/\s$?#.]+\.[^\s]*$/
+
+    const invalidLink = !linkValidator.test(newLink)
+    if (invalidLink) {
+      return toast.warning("Link inválido")
+    }
+
     setLinks((prevState) => [...prevState, newLink])
     setNewLink("")
   }
