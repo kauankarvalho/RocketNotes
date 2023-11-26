@@ -71,6 +71,16 @@ export function NoteCreate() {
   }
 
   function handleCreateNote() {
+    const forgottenLink = newLink !== ""
+    if (forgottenLink) {
+      return toast.warning("Parece que você esqueceu de adicionar um link")
+    }
+
+    const forgottenTag = newTag !== ""
+    if (forgottenTag) {
+      return toast.warning("Parece que você esqueceu de adicionar um marcador")
+    }
+
     setLoading(true)
 
     api
