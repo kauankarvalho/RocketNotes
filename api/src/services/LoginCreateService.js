@@ -1,3 +1,4 @@
+const EmailValidator = require("../utils/EmailValidator")
 const ErrorResponse = require("../utils/ErrorResponse")
 const authConfig = require("../configs/auth")
 const { sign } = require("jsonwebtoken")
@@ -17,6 +18,8 @@ class LoginCreateService {
         message: "Por favor, preencha todos os campos obrigatórios",
       })
     }
+
+    EmailValidator.validator(email)
 
     const user = await this.userRepository.getUserByEmail(email)
 

@@ -79,6 +79,25 @@ test("should reject update user with invalid password", () => {
   )
 })
 
+test("should reject login with email not valid", () => {
+  expect(async () => {
+    await userUpdateService.execute({
+      id: john.id,
+      name: john.name,
+      email: "johnemail.com",
+      password: "123",
+      newPassword: "",
+    })
+  }).rejects.toEqual(
+    new ErrorResponse({
+      statusCode: 400,
+      status: "warning",
+      field: "email",
+      message: "Insira um e-mail válido",
+    }),
+  )
+})
+
 test("should reject update user with email already registered", () => {
   const henry = {
     id: crypto.randomUUID(),

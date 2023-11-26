@@ -36,6 +36,22 @@ test("should reject login with mandatory fields blank", () => {
   )
 })
 
+test("should reject login with email not valid", () => {
+  expect(async () => {
+    await loginCreateService.execute({
+      email: "johnemail.com",
+      password: "123",
+    })
+  }).rejects.toEqual(
+    new ErrorResponse({
+      statusCode: 400,
+      status: "warning",
+      field: "email",
+      message: "Insira um e-mail válido",
+    }),
+  )
+})
+
 test("should reject login with invalid email", () => {
   expect(async () => {
     await loginCreateService.execute({

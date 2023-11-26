@@ -1,3 +1,4 @@
+const EmailValidator = require("../utils/EmailValidator")
 const ErrorResponse = require("../utils/ErrorResponse")
 const { hash } = require("bcryptjs")
 
@@ -15,6 +16,8 @@ class UserCreateService {
         message: "Por favor, preencha todos os campos obrigatórios",
       })
     }
+
+    EmailValidator.validator(email)
 
     const emailExist = await this.userRepository.getUserByEmail(email)
     if (emailExist) {

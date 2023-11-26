@@ -28,6 +28,23 @@ test("should reject user create with mandatory fields blank", () => {
   )
 })
 
+test("should reject login with email not valid", () => {
+  expect(async () => {
+    await userCreateService.execute({
+      name: "John",
+      email: "johnemail.com",
+      password: "123",
+    })
+  }).rejects.toEqual(
+    new ErrorResponse({
+      statusCode: 400,
+      status: "warning",
+      field: "email",
+      message: "Insira um e-mail válido",
+    }),
+  )
+})
+
 test("should reject user create with email already registered", () => {
   const john = {
     id: crypto.randomUUID(),

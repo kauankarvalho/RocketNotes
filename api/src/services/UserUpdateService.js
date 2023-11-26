@@ -1,3 +1,4 @@
+const EmailValidator = require("../utils/EmailValidator")
 const ErrorResponse = require("../utils/ErrorResponse")
 const { hash, compare } = require("bcryptjs")
 
@@ -38,6 +39,8 @@ class UserUpdateService {
         message: "Senha inválida",
       })
     }
+
+    EmailValidator.validator(email)
 
     const emailExist = await this.userRepository.getUserByEmail(email)
 
