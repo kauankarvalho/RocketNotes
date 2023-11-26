@@ -18,6 +18,17 @@ class NoteCreateService {
       })
     }
 
+    const isMissingTags = tags.length === 0
+    if (isMissingTags) {
+      throw new ErrorResponse({
+        statusCode: 400,
+        status: "warning",
+        field: "tags",
+        message:
+          "Por favor, certifique-se de incluir pelo menos um marcador em sua anotação",
+      })
+    }
+
     const note = await this.noteRepository.create({
       user_id,
       title,

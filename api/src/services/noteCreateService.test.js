@@ -45,6 +45,27 @@ test("should reject create note with mandatory fields blank", () => {
   )
 })
 
+test("should reject create note without at least one tag", () => {
+  expect(async () => {
+    await noteCreateService.execute({
+      user_id: userId,
+      title: "What is Lorem Ipsum?",
+      description:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      links: ["https://www.lipsum.com"],
+      tags: [],
+    })
+  }).rejects.toEqual(
+    new ErrorResponse({
+      statusCode: 400,
+      status: "warning",
+      field: "tags",
+      message:
+        "Por favor, certifique-se de incluir pelo menos um marcador em sua anotação",
+    }),
+  )
+})
+
 test("should create a note with associated links and tags", async () => {
   const newNote = {
     user_id: userId,
