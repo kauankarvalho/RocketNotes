@@ -65,7 +65,7 @@ export function Profile() {
     <div id="profile" className="h-full">
       <header className="bg-gray-900 py-[5rem] px-[15rem] flex">
         <Link to="/">
-          <FiArrowLeft className="w-[2.4rem] h-[2.4rem] text-gray-500" />
+          <FiArrowLeft className="w-[2.4rem] h-[2.4rem] text-gray-500 hover-effect" />
         </Link>
       </header>
 
@@ -80,7 +80,7 @@ export function Profile() {
 
             <label
               htmlFor="avatar"
-              className="bg-orange flex max-w-min p-[1.5rem] rounded-full absolute right-[0.4rem] bottom-[0.4rem] cursor-pointer"
+              className="bg-orange flex max-w-min p-[1.5rem] rounded-full absolute right-[0.4rem] bottom-[0.4rem] cursor-pointer hover-effect"
             >
               <FiCamera className="w-[2rem] h-[2rem] text-gray-800" />
               <input

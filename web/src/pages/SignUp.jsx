@@ -106,7 +106,10 @@ export function SignUp() {
           </fieldset>
         </form>
 
-        <Link to="/" className="text-orange text-[1.6rem]/[2.1rem] mt-[3rem]">
+        <Link
+          to="/"
+          className="text-orange text-[1.6rem]/[2.1rem] mt-[3rem] hover-effect"
+        >
           Voltar para o login
         </Link>
       </main>

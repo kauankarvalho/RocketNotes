@@ -49,7 +49,7 @@ export function Header() {
       </div>
 
       <RiShutDownLine
-        className="w-[3.6rem] h-[3.6rem] text-gray-500 cursor-pointer"
+        className="w-[3.6rem] h-[3.6rem] text-gray-500 cursor-pointer hover-effect"
         onClick={() => setModalOpen(!modalOpen)}
       />
 

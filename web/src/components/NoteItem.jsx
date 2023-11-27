@@ -29,7 +29,7 @@ export function NoteItem({ link, tag, isNew, id, value, onClick, ...rest }) {
     <div className={`relative ${width}`}>
       <label
         htmlFor={id}
-        className="absolute right-[1.5rem] top-[50%] translate-y-[-50%] w-[2rem] h-[2rem]"
+        className="absolute right-[1.5rem] top-[50%] translate-y-[-50%] w-[2rem] h-[2rem] hover-effect"
       >
         <button type="button" onClick={onClick}>
           {icon}

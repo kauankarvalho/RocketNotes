@@ -71,7 +71,7 @@ export function Home() {
         <footer>
           <Link
             to="/new"
-            className="bg-orange py-[2.8rem] flex justify-center text-[2rem]/[2.6rem] gap-[0.8rem] items-center text-gray-900"
+            className="bg-orange py-[2.8rem] flex justify-center text-[2rem]/[2.6rem] gap-[0.8rem] items-center text-gray-900 hover-effect"
           >
             <FiPlus className="w-[2.2rem] h-full" />
             Criar nota

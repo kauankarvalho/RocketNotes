@@ -9,7 +9,7 @@ export function Button({ title, loading, onClick, ...rest }) {
 
   return (
     <button
-      className="bg-orange flex justify-center rounded-[1rem] p-[1.6rem] text-[1.6rem]/[2.1rem] font-medium text-gray-800 w-full mt-[2.4rem]  disabled:opacity-50 disabled:cursor-no-drop"
+      className="bg-orange flex justify-center rounded-[1rem] p-[1.4rem] text-[1.6rem]/[2.1rem] font-medium text-gray-800 w-full mt-[2.4rem]  disabled:opacity-50 disabled:cursor-no-drop hover-effect"
       type="button"
       disabled={loading}
       onClick={onClick}

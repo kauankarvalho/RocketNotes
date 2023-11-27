@@ -14,6 +14,10 @@
   #root {
     @apply h-full;
   }
+
+  .hover-effect {
+    @apply transition-all duration-[0.2s] hover:brightness-75;
+  }
 }
 
 .Toastify__toast-body {

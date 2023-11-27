@@ -71,7 +71,7 @@ export function NotePreview() {
                     {note.links.map((link, index) => (
                       <li key={String(index)}>
                         <a
-                          className="text-white text-[1.6rem]/[1.9rem] cursor-pointer"
+                          className="text-white text-[1.6rem]/[1.9rem] cursor-pointer hover:underline hover-effect"
                           href={link}
                           target="_blank"
                           rel="noreferrer"

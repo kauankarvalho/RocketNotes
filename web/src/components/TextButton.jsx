@@ -4,7 +4,7 @@ export function TextButton({ title, isOrange, onClick }) {
   return (
     <span
       type="button"
-      className={`text-[1.6rem]/[2.1rem] cursor-pointer ${textColor}`}
+      className={`text-[1.6rem]/[2.1rem] cursor-pointer ${textColor} hover-effect`}
       onClick={onClick}
     >
       {title}

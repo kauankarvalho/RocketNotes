@@ -114,7 +114,10 @@ export function NoteCreate() {
               Criar nota
             </h1>
 
-            <Link to="/" className="text-[2rem]/[2.6rem] text-gray-500">
+            <Link
+              to="/"
+              className="text-[2rem]/[2.6rem] text-gray-500 hover-effect"
+            >
               Voltar
             </Link>
           </header>
@@ -130,7 +133,7 @@ export function NoteCreate() {
             <textarea
               id="description"
               placeholder="Observações"
-              className="bg-gray-900 w-full outline-none rounded-[1rem] p-[1.5rem] text-[1.6rem]/[1.9rem] placeholder:text-gray-600 text-white h-[15rem] border-[0.2rem] border-transparent focus:border-orange resize-none text-justify"
+              className="bg-gray-900 w-full outline-none rounded-[1rem] p-[1.5rem] text-[1.6rem]/[1.9rem] placeholder:text-gray-600 text-white h-[15rem] border-[0.2rem] border-transparent focus:border-orange resize-none text-justify transition-all duration-[0.2s]"
               onChange={(event) => setDescription(event.target.value)}
             ></textarea>
           </fieldset>
