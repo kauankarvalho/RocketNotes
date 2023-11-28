@@ -41,6 +41,10 @@ export function Profile() {
   function handleUpdate() {
     setLoading(true)
     updateProfile({ name, email, password, newPassword, avatarFile })
+      .then(() => {
+        setPassword("")
+        setNewPassword("")
+      })
       .catch((error) => {
         const isStatusError = error.status === "error"
 
