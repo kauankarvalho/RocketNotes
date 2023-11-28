@@ -1,6 +1,7 @@
 import { displayStatusMessage } from "../utils/displayStatusMessage.js"
+import { TextButton } from "../components/TextButton.jsx"
 import { FiUser, FiMail, FiLock } from "react-icons/fi"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
 import { api } from "../services/api.js"
@@ -40,6 +41,10 @@ export function SignUp() {
       .finally(() => setLoading(false))
   }
 
+  function handleBack() {
+    navigate(-1)
+  }
+
   function handleEnter(event) {
     const isEnterKey = event.key === "Enter"
     if (isEnterKey) {
@@ -62,7 +67,7 @@ export function SignUp() {
           </p>
         </div>
 
-        <form className="w-[34rem]">
+        <form className="w-[34rem] mb-[3rem]">
           <fieldset className="w-full">
             <legend className="text-[2.4rem]/[3.2rem] font-medium text-white mb-[4.8rem] w-full text-center">
               Crie sua conta
@@ -106,12 +111,7 @@ export function SignUp() {
           </fieldset>
         </form>
 
-        <Link
-          to="/"
-          className="text-orange text-[1.6rem]/[2.1rem] mt-[3rem] hover-effect"
-        >
-          Voltar para o login
-        </Link>
+        <TextButton title="Voltar para o login" isOrange onClick={handleBack} />
       </main>
     </div>
   )

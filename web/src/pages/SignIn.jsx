@@ -1,7 +1,8 @@
+import { TextButton } from "../components/TextButton"
 import { FiMail, FiLock } from "react-icons/fi"
+import { useNavigate } from "react-router-dom"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
-import { Link } from "react-router-dom"
 import { useAuth } from "../hooks/auth"
 import { useState } from "react"
 
@@ -12,6 +13,8 @@ export function SignIn() {
   const [loading, setLoading] = useState(false)
 
   const { signIn } = useAuth()
+
+  const navigate = useNavigate()
 
   function handleSignIn() {
     setLoading(true)
@@ -47,7 +50,7 @@ export function SignIn() {
           </p>
         </div>
 
-        <form className="w-[34rem]">
+        <form className="w-[34rem] mb-[3rem]">
           <fieldset className="w-full">
             <legend className="text-[2.4rem]/[3.2rem] font-medium text-white mb-[4.8rem] w-full text-center">
               Faça seu login
@@ -78,12 +81,11 @@ export function SignIn() {
           </fieldset>
         </form>
 
-        <Link
-          to="/register"
-          className="text-orange text-[1.6rem]/[2.1rem] mt-[3rem] hover-effect"
-        >
-          Criar conta
-        </Link>
+        <TextButton
+          title="Criar conta"
+          isOrange
+          onClick={() => navigate("/register")}
+        />
       </main>
 
       <aside className="flex-1 bg-[url(../assets/background.png)] bg-cover bg-center bg-no-repeat opacity-20"></aside>

@@ -1,8 +1,9 @@
 import { FiArrowLeft, FiCamera, FiUser, FiMail, FiLock } from "react-icons/fi"
+import { TextButton } from "../components/TextButton"
 import avatarDefault from "../assets/avatar.svg"
+import { useNavigate } from "react-router-dom"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
-import { Link } from "react-router-dom"
 import { useAuth } from "../hooks/auth"
 import { api } from "../services/api"
 import { useState } from "react"
@@ -16,6 +17,8 @@ export function Profile() {
   const [newPassword, setNewPassword] = useState("")
 
   const [loading, setLoading] = useState(false)
+
+  const navigate = useNavigate()
 
   let avatarUrl = avatarDefault
 
@@ -54,6 +57,10 @@ export function Profile() {
       .finally(() => setLoading(false))
   }
 
+  function handleBack() {
+    navigate(-1)
+  }
+
   function handleEnter(event) {
     const isEnterKey = event.key === "Enter"
     if (isEnterKey) {
@@ -64,9 +71,7 @@ export function Profile() {
   return (
     <div id="profile" className="h-full">
       <header className="bg-gray-900 py-[5rem] px-[15rem] flex">
-        <Link to="/">
-          <FiArrowLeft className="w-[2.4rem] h-[2.4rem] text-gray-500 hover-effect" />
-        </Link>
+        <TextButton icon={FiArrowLeft} onClick={handleBack}></TextButton>
       </header>
 
       <main className="flex justify-center">

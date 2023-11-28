@@ -1,7 +1,8 @@
 import { displayStatusMessage } from "../utils/displayStatusMessage"
-import { Link, useNavigate } from "react-router-dom"
+import { TextButton } from "../components/TextButton"
 import { NoteItem } from "../components/NoteItem"
 import { Section } from "../components/Section"
+import { useNavigate } from "react-router-dom"
 import { Header } from "../components/Header"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
@@ -100,6 +101,10 @@ export function NoteCreate() {
       .finally(() => setLoading(false))
   }
 
+  function handleBack() {
+    navigate(-1)
+  }
+
   return (
     <div id="NoteCreate" className="h-full grid grid-rows-[auto,_1fr]">
       <Header />
@@ -114,12 +119,7 @@ export function NoteCreate() {
               Criar nota
             </h1>
 
-            <Link
-              to="/"
-              className="text-[2rem]/[2.6rem] text-gray-500 hover-effect"
-            >
-              Voltar
-            </Link>
+            <TextButton title="Voltar" onClick={handleBack} />
           </header>
 
           <fieldset className="flex flex-col gap-[1.6rem]">
