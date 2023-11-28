@@ -12,9 +12,9 @@ export function Modal({
     return (
       <div
         id="modal"
-        className="bg-black/80 absolute top-0 left-0 w-full h-full z-50 flex justify-center items-center"
+        className="bg-black/80 absolute top-0 left-0 w-full h-full z-50 flex justify-center items-center animate-bgModalOpen"
       >
-        <div className="w-[48rem] h-[34rem] bg-gray-900 rounded-[0.5rem] flex flex-col justify-center items-center gap-[3rem]">
+        <div className="w-[48rem] h-[34rem] bg-gray-900 rounded-[0.5rem] flex flex-col justify-center items-center gap-[3rem] animate-modalOpen">
           <h2 className="text-[2.5rem] text-white font-bold">{title}</h2>
 
           <div className="flex gap-[1rem]">

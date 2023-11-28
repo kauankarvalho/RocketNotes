@@ -25,7 +25,23 @@ export default {
       "gray-600": "#666360",
       "gray-500": "#999591",
     },
-    extend: {},
+    extend: {
+      keyframes: {
+        bgModalOpen: {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+
+        modalOpen: {
+          "0%": { transform: "translateY(-100px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+      },
+      animation: {
+        bgModalOpen: "bgModalOpen 0.4s",
+        modalOpen: "modalOpen 0.4s",
+      },
+    },
   },
   plugins: [],
 }
