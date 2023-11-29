@@ -20,5 +20,6 @@ userRouter.patch(
   upload.single("avatar"),
   userAvatarController.update,
 )
+userRouter.delete("/", ensureAuth, userController.delete)
 
 module.exports = userRouter

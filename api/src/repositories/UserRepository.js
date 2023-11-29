@@ -40,6 +40,14 @@ class UserRepository {
       },
     })
   }
+
+  async delete(id) {
+    await prisma.user.delete({
+      where: {
+        id,
+      },
+    })
+  }
 }
 
 module.exports = UserRepository

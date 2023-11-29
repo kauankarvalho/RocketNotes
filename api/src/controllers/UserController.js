@@ -1,5 +1,6 @@
 const UserCreateService = require("../services/UserCreateService")
 const UserUpdateService = require("../services/UserUpdateService")
+const UserDeleteService = require("../services/UserDeleteService")
 const UserRepository = require("../repositories/UserRepository")
 
 class UserController {
@@ -35,6 +36,21 @@ class UserController {
     return response.status(200).json({
       status: "success",
       message: "As informações da conta foram atualizadas com sucesso",
+    })
+  }
+
+  async delete(request, response) {
+    const { password } = request.body
+    const { id } = request.user
+
+    const userRepository = new UserRepository()
+    const userDeleteService = new UserDeleteService(userRepository)
+
+    await userDeleteService.execute({ id, password })
+
+    return response.status(200).json({
+      status: "success",
+      message: "Conta excluida com sucesso",
     })
   }
 }

@@ -7,7 +7,11 @@ function ensureAuth(request, response, next) {
 
   const isAuthHeaderMissing = !authHeader
   if (isAuthHeaderMissing) {
-    throw new ErrorResponse("error", "Token não informado", 401)
+    throw new ErrorResponse({
+      statusCode: 401,
+      status: "error",
+      message: "Token não informado",
+    })
   }
 
   const [, token] = authHeader.split(" ")
@@ -21,7 +25,11 @@ function ensureAuth(request, response, next) {
 
     return next()
   } catch {
-    throw new ErrorResponse("error", "Token inválido", 401)
+    throw new ErrorResponse({
+      statusCode: 401,
+      status: "error",
+      message: "Token inválido",
+    })
   }
 }
 
