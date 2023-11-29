@@ -40,6 +40,10 @@ class InMemoryUserRepository {
 
     this.users = updatedUser
   }
+
+  async delete(id) {
+    this.users = this.users.filter((user) => user.id !== id)
+  }
 }
 
 module.exports = InMemoryUserRepository
