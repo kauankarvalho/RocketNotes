@@ -179,7 +179,7 @@ export function NoteCreate() {
           </fieldset>
         </form>
 
-        <div className="w-full max-w-[55rem]">
+        <div className="w-full max-w-[55rem] mt-[2.4rem]">
           <Button
             title="Salvar"
             form="noteForm"

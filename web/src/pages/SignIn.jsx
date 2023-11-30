@@ -56,7 +56,7 @@ export function SignIn() {
               Faça seu login
             </legend>
 
-            <div className="w-full flex flex-col gap-[0.8rem]">
+            <div className="w-full flex flex-col gap-[0.8rem] mb-[2.4rem]">
               <Input
                 icon={FiMail}
                 id="email"

@@ -70,6 +70,22 @@ export function AuthProvider({ children }) {
       })
   }
 
+  async function deleteProfile(password) {
+    return api
+      .delete("/user", {
+        data: {
+          password,
+        },
+      })
+      .then((response) => {
+        signOut()
+        displayStatusMessage(response)
+      })
+      .catch((error) => {
+        throw displayStatusMessage(error.response)
+      })
+  }
+
   function signOut() {
     localStorage.clear()
     setData({})
@@ -96,6 +112,7 @@ export function AuthProvider({ children }) {
         user: data.user,
         signIn,
         updateProfile,
+        deleteProfile,
         signOut,
       }}
     >

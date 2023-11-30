@@ -73,7 +73,7 @@ export function SignUp() {
               Crie sua conta
             </legend>
 
-            <div className="w-full flex flex-col gap-[0.8rem]">
+            <div className="w-full flex flex-col gap-[0.8rem] mb-[2.4rem]">
               <Input
                 icon={FiUser}
                 id="name"

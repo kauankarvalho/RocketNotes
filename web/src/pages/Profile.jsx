@@ -1,22 +1,27 @@
 import { FiArrowLeft, FiCamera, FiUser, FiMail, FiLock } from "react-icons/fi"
 import { TextButton } from "../components/TextButton"
 import avatarDefault from "../assets/avatar.svg"
+import { FaUserAltSlash } from "react-icons/fa"
 import { useNavigate } from "react-router-dom"
 import { Button } from "../components/Button"
 import { Input } from "../components/Input"
+import { Modal } from "../components/Modal"
 import { useAuth } from "../hooks/auth"
 import { api } from "../services/api"
 import { useState } from "react"
 
 export function Profile() {
-  const { user, updateProfile } = useAuth()
+  const { user, updateProfile, deleteProfile } = useAuth()
 
   const [name, setName] = useState(user.name)
   const [email, setEmail] = useState(user.email)
   const [password, setPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
 
-  const [loading, setLoading] = useState(false)
+  const [saveButtonLoading, setSaveButtonLoading] = useState(false)
+  const [deleteButtonLoading, setDeleteButtonLoading] = useState(false)
+
+  const [modalOpen, setModalOpen] = useState(false)
 
   const navigate = useNavigate()
 
@@ -39,7 +44,8 @@ export function Profile() {
   }
 
   function handleUpdate() {
-    setLoading(true)
+    setSaveButtonLoading(true)
+
     updateProfile({ name, email, password, newPassword, avatarFile })
       .then(() => {
         setPassword("")
@@ -58,7 +64,17 @@ export function Profile() {
           setPassword("")
         }
       })
-      .finally(() => setLoading(false))
+      .finally(() => setSaveButtonLoading(false))
+  }
+
+  function handleDelete() {
+    setDeleteButtonLoading(true)
+
+    deleteProfile(password)
+      .catch(() => setPassword(""))
+      .finally(() => setDeleteButtonLoading(false))
+
+    setModalOpen(false)
   }
 
   function handleBack() {
@@ -101,7 +117,7 @@ export function Profile() {
             </label>
           </div>
 
-          <div className="flex flex-col gap-[2.4rem] w-full">
+          <div className="flex flex-col gap-[2.4rem] w-full mb-[2.4rem]">
             <div className="flex flex-col gap-[0.8rem] w-full">
               <Input
                 icon={FiUser}
@@ -145,9 +161,31 @@ export function Profile() {
             </div>
           </div>
 
-          <Button title="Salvar" loading={loading} onClick={handleUpdate} />
+          <div className="w-full flex flex-col gap-[1rem]">
+            <Button
+              title="Salvar"
+              loading={saveButtonLoading}
+              onClick={handleUpdate}
+            />
+
+            <Button
+              title="Excluir"
+              loading={deleteButtonLoading}
+              isRed
+              onClick={() => setModalOpen(true)}
+            />
+          </div>
         </form>
       </main>
+
+      <Modal
+        title="Quer excluir mesmo?"
+        icon={FaUserAltSlash}
+        buttonName="Excluir"
+        handle={handleDelete}
+        isOpen={modalOpen}
+        setModalOpen={setModalOpen}
+      />
     </div>
   )
 }
