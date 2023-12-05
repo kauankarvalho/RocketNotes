@@ -54,7 +54,10 @@ export function SignUp() {
 
   return (
     <div id="SignUp" className="flex h-full">
-      <aside className="flex-1 bg-[url(../assets/background.png)] bg-cover bg-center bg-no-repeat opacity-20"></aside>
+      <aside
+        className="flex-1 bg-[url(../assets/background.png)] bg-cover bg-center bg-no-repeat opacity-20"
+        aria-label="Imagem lateral"
+      ></aside>
 
       <main className="px-[16rem] flex flex-col justify-center items-center gap-[5rem]">
         <div className="flex flex-col text-center">
@@ -77,6 +80,7 @@ export function SignUp() {
               <Input
                 icon={FiUser}
                 id="name"
+                label="Nome"
                 type="text"
                 placeholder="Nome"
                 value={name}
@@ -86,6 +90,7 @@ export function SignUp() {
               <Input
                 icon={FiMail}
                 id="email"
+                label="E-mail"
                 type="email"
                 placeholder="E-mail"
                 value={email}
@@ -95,6 +100,7 @@ export function SignUp() {
               <Input
                 icon={FiLock}
                 id="password"
+                label="Senha"
                 type="password"
                 placeholder="Senha"
                 value={password}
