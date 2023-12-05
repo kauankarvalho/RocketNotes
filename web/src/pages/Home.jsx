@@ -41,14 +41,20 @@ export function Home() {
       id="home"
       className="grid grid-cols-[25rem,_1fr] grid-rows-[11.09rem,_1fr] h-full"
     >
-      <aside className="row-span-2 grid grid-rows-[11.09rem,_1fr_auto] bg-gray-900">
+      <aside
+        className="row-span-2 grid grid-rows-[11.09rem,_1fr_auto] bg-gray-900"
+        aria-label="Barra lateral"
+      >
         <header className="border-b-[0.1rem] border-gray-700 flex justify-center items-center">
           <h1 className="text-[2.4rem]/[3.2rem] text-orange font-bold">
             Rocketnotes
           </h1>
         </header>
 
-        <ul className="p-[6.4rem] flex flex-col gap-[2.4rem] text-center overflow-y-auto">
+        <ul
+          className="p-[6.4rem] flex flex-col gap-[2.4rem] text-center overflow-y-auto"
+          aria-label="Marcadores"
+        >
           <li>
             <TextButton
               title="Todos"
@@ -85,6 +91,7 @@ export function Home() {
         <Input
           icon={FiSearch}
           id="search"
+          label="Pesquisar pelo título"
           type="search"
           placeholder="Pesquisar pelo título"
           onChange={(event) => setSearch(event.target.value)}

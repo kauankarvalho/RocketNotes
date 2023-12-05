@@ -29,7 +29,7 @@ export function Header() {
   return (
     <header className="py-[2rem] px-[4rem] border-b-[0.1rem] border-gray-700 flex justify-between items-center bg-gray-800">
       <div className="flex gap-[1rem]">
-        <Link to="/profile">
+        <Link to="/profile" aria-label="Acesse seu perfil">
           <img
             src={avatar}
             alt={`Imagem de ${user.name}`}
@@ -50,6 +50,9 @@ export function Header() {
 
       <RiShutDownLine
         className="w-[3.6rem] h-[3.6rem] text-gray-500 cursor-pointer hover-effect"
+        role="button"
+        aria-label="Sair da sua conta"
+        tabIndex={0}
         onClick={() => setModalOpen(!modalOpen)}
       />
 
