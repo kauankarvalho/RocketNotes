@@ -91,90 +91,105 @@ export function Profile() {
   return (
     <div id="profile" className="h-full">
       <header className="bg-gray-900 py-[5rem] px-[15rem] flex">
-        <TextButton icon={FiArrowLeft} onClick={handleBack}></TextButton>
+        <TextButton
+          icon={FiArrowLeft}
+          label="Voltar"
+          onClick={handleBack}
+        ></TextButton>
       </header>
 
       <main className="flex justify-center">
-        <form className="w-full max-w-[34rem] flex flex-col items-center">
-          <div className="relative w-[16.5rem] h-[16.5rem] mt-[-8rem] mb-[6.4rem]">
-            <img
-              src={avatar}
-              alt={`Imagem de ${user.name}`}
-              className="w-[16.5rem] h-[16.5rem] rounded-full"
-            />
+        <form className="w-full max-w-[34rem]">
+          <fieldset className="flex flex-col items-center">
+            <legend className="sr-only">Atualize os dados da sua conta</legend>
 
-            <label
-              htmlFor="avatar"
-              className="bg-orange flex max-w-min p-[1.5rem] rounded-full absolute right-[0.4rem] bottom-[0.4rem] cursor-pointer hover-effect"
-            >
-              <FiCamera className="w-[2rem] h-[2rem] text-gray-800" />
-              <input
-                id="avatar"
-                type="file"
-                className="hidden"
-                onChange={handleChangeAvatar}
+            <div className="relative w-[16.5rem] h-[16.5rem] mt-[-8rem] mb-[6.4rem]">
+              <img
+                src={avatar}
+                alt={`Imagem de ${user.name}`}
+                className="w-[16.5rem] h-[16.5rem] rounded-full"
               />
-            </label>
-          </div>
 
-          <div className="flex flex-col gap-[2.4rem] w-full mb-[2.4rem]">
-            <div className="flex flex-col gap-[0.8rem] w-full">
-              <Input
-                icon={FiUser}
-                id="name"
-                type="text"
-                placeholder="Nome"
-                value={name}
-                onKeyDown={handleEnter}
-                onChange={(event) => setName(event.target.value)}
-              />
-              <Input
-                icon={FiMail}
-                id="email"
-                type="email"
-                placeholder="Novo E-mail"
-                value={email}
-                onKeyDown={handleEnter}
-                onChange={(event) => setEmail(event.target.value)}
-              />
+              <label
+                htmlFor="avatar"
+                className="bg-orange flex max-w-min p-[1.5rem] rounded-full absolute right-[0.4rem] bottom-[0.4rem] cursor-pointer hover-effect"
+                tabIndex={0}
+              >
+                <span className="sr-only">Adicionar uma foto de perfil</span>
+
+                <FiCamera className="w-[2rem] h-[2rem] text-gray-800" />
+                <input
+                  id="avatar"
+                  type="file"
+                  className="hidden"
+                  onChange={handleChangeAvatar}
+                />
+              </label>
             </div>
 
-            <div className="flex flex-col gap-[0.8rem] w-full">
-              <Input
-                icon={FiLock}
-                id="password"
-                type="password"
-                placeholder="Senha atual"
-                value={password}
-                onKeyDown={handleEnter}
-                onChange={(event) => setPassword(event.target.value)}
+            <div className="flex flex-col gap-[2.4rem] w-full mb-[2.4rem]">
+              <div className="flex flex-col gap-[0.8rem] w-full">
+                <Input
+                  icon={FiUser}
+                  id="name"
+                  label="Nome"
+                  type="text"
+                  placeholder="Nome"
+                  value={name}
+                  onKeyDown={handleEnter}
+                  onChange={(event) => setName(event.target.value)}
+                />
+                <Input
+                  icon={FiMail}
+                  id="email"
+                  label="Email"
+                  type="email"
+                  placeholder="Novo E-mail"
+                  value={email}
+                  onKeyDown={handleEnter}
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-col gap-[0.8rem] w-full">
+                <Input
+                  icon={FiLock}
+                  id="password"
+                  label="Senha atual"
+                  type="password"
+                  placeholder="Senha atual"
+                  value={password}
+                  onKeyDown={handleEnter}
+                  onChange={(event) => setPassword(event.target.value)}
+                />
+                <Input
+                  icon={FiLock}
+                  id="newPassword"
+                  label="Nova senha"
+                  type="password"
+                  placeholder="Nova senha"
+                  value={newPassword}
+                  onKeyDown={handleEnter}
+                  onChange={(event) => setNewPassword(event.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="w-full flex flex-col gap-[1rem]">
+              <Button
+                title="Salvar"
+                loading={saveButtonLoading}
+                onClick={handleUpdate}
               />
-              <Input
-                icon={FiLock}
-                id="newPassword"
-                type="password"
-                placeholder="Nova senha"
-                value={newPassword}
-                onKeyDown={handleEnter}
-                onChange={(event) => setNewPassword(event.target.value)}
+
+              <Button
+                title="Excluir conta"
+                loading={deleteButtonLoading}
+                isRed
+                onClick={() => setModalOpen(true)}
               />
             </div>
-          </div>
-
-          <div className="w-full flex flex-col gap-[1rem]">
-            <Button
-              title="Salvar"
-              loading={saveButtonLoading}
-              onClick={handleUpdate}
-            />
-
-            <Button
-              title="Excluir"
-              loading={deleteButtonLoading}
-              isRed
-              onClick={() => setModalOpen(true)}
-            />
-          </div>
+          </fieldset>
         </form>
       </main>
 
