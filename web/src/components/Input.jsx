@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export function Input({ icon: Icon, id, ...rest }) {
+export function Input({ icon: Icon, id, label, ...rest }) {
   const [iconColor, setIconColor] = useState("text-gray-600")
 
   const paddingLeftClass = Icon ? "pl-[5.2rem]" : "pl-[1.5rem]"
@@ -20,6 +20,7 @@ export function Input({ icon: Icon, id, ...rest }) {
           htmlFor={id}
           className="absolute left-[1.6rem] top-[50%] translate-y-[-50%]"
         >
+          <span className="sr-only">{label}</span>
           <Icon
             className={`h-[2rem] w-[2rem] ${iconColor} transition-all duration-[0.2s]`}
           />

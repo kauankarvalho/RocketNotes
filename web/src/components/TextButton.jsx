@@ -5,6 +5,8 @@ export function TextButton({ title, isOrange, icon: Icon, onClick }) {
     <span
       type="button"
       className={`text-[1.6rem]/[2.1rem] cursor-pointer ${textColor} hover-effect`}
+      role="button"
+      tabIndex={0}
       onClick={onClick}
     >
       {title}

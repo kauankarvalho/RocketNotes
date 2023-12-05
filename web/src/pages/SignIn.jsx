@@ -60,6 +60,7 @@ export function SignIn() {
               <Input
                 icon={FiMail}
                 id="email"
+                label="E-mail"
                 type="email"
                 placeholder="E-mail"
                 value={email}
@@ -69,6 +70,7 @@ export function SignIn() {
               <Input
                 icon={FiLock}
                 id="password"
+                label="Senha"
                 type="password"
                 placeholder="Senha"
                 value={password}
@@ -88,7 +90,10 @@ export function SignIn() {
         />
       </main>
 
-      <aside className="flex-1 bg-[url(../assets/background.png)] bg-cover bg-center bg-no-repeat opacity-20"></aside>
+      <aside
+        className="flex-1 bg-[url(../assets/background.png)] bg-cover bg-center bg-no-repeat opacity-20"
+        aria-label="Imagem lateral"
+      ></aside>
     </div>
   )
 }
