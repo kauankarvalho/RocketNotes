@@ -5,13 +5,17 @@ export function NoteItem({ link, tag, isNew, id, value, onClick, ...rest }) {
   let inputStyles
   let placeholder
   let width
+  let type
+  let label
 
   if (link) {
+    type = "Link"
     width = "w-full"
-    placeholder = "Novo Link"
+    placeholder = "Novo link"
   }
 
   if (tag) {
+    type = "marcador"
     width = "w-[48%]"
     placeholder = "Novo marcador"
   }
@@ -19,10 +23,11 @@ export function NoteItem({ link, tag, isNew, id, value, onClick, ...rest }) {
   if (isNew) {
     icon = <FiPlus className="w-[2rem] h-[2rem] text-orange" />
     inputStyles = "bg-transparent border-dashed border-gray-600"
+    label = `Adicionar ${type}`
   } else {
     icon = <FiX className="w-[2rem] h-[2rem] text-red" />
     inputStyles = "bg-gray-900 border-transparent"
-    placeholder = ""
+    label = `Remover ${type} ${value}`
   }
 
   return (
@@ -30,7 +35,11 @@ export function NoteItem({ link, tag, isNew, id, value, onClick, ...rest }) {
       <label
         htmlFor={id}
         className="absolute right-[1.5rem] top-[50%] translate-y-[-50%] w-[2rem] h-[2rem] hover-effect"
+        role="button"
+        tabIndex={0}
       >
+        <span className="sr-only">{label}</span>
+
         <button type="button" onClick={onClick}>
           {icon}
         </button>

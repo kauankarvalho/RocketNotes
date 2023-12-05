@@ -123,22 +123,32 @@ export function NoteCreate() {
           </header>
 
           <fieldset className="flex flex-col gap-[1.6rem]">
+            <legend className="sr-only">Título e Observações</legend>
+
             <Input
               id="title"
+              label="Título"
               type="text"
               placeholder="Título"
               onChange={(event) => setTitle(event.target.value)}
             />
 
-            <textarea
-              id="description"
-              placeholder="Observações"
-              className="bg-gray-900 w-full outline-none rounded-[1rem] p-[1.5rem] text-[1.6rem]/[1.9rem] placeholder:text-gray-600 text-white h-[15rem] border-[0.2rem] border-transparent focus:border-orange resize-none text-justify transition-all duration-[0.2s]"
-              onChange={(event) => setDescription(event.target.value)}
-            ></textarea>
+            <div>
+              <label htmlFor="description" className="sr-only">
+                Observações
+              </label>
+              <textarea
+                id="description"
+                placeholder="Observações"
+                className="bg-gray-900 w-full outline-none rounded-[1rem] p-[1.5rem] text-[1.6rem]/[1.9rem] placeholder:text-gray-600 text-white h-[15rem] border-[0.2rem] border-transparent focus:border-orange resize-none text-justify transition-all duration-[0.2s]"
+                onChange={(event) => setDescription(event.target.value)}
+              ></textarea>
+            </div>
           </fieldset>
 
           <fieldset className="flex flex-col gap-[5rem]">
+            <legend className="sr-only">Links e Marcadores</legend>
+
             <Section title="Links úteis">
               {links.map((link, index) => (
                 <NoteItem
