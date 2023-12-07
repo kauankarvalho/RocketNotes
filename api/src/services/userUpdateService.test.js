@@ -2,6 +2,7 @@ const InMemoryUserRepository = require("../repositories/InMemoryUserRepository")
 const UserUpdateService = require("../services/UserUpdateService")
 import { describe, beforeEach, test, expect } from "vitest"
 const ErrorResponse = require("../utils/ErrorResponse")
+const AdminAccount = require("../utils/AdminAccount")
 const crypto = require("node:crypto")
 const { hash } = require("bcryptjs")
 
@@ -25,7 +26,7 @@ describe("UserUpdateService", () => {
     inMemoryUserRepository.users = [john]
   })
 
-  test("should reject update user with empty name and email fields", () => {
+  test("should reject user update with empty name and email fields", () => {
     expect(async () => {
       await userUpdateService.execute({
         id: john.id,
@@ -44,7 +45,7 @@ describe("UserUpdateService", () => {
     )
   })
 
-  test("should reject update user with empty password field", () => {
+  test("should reject user update with empty password field", () => {
     expect(async () => {
       await userUpdateService.execute({
         id: john.id,
@@ -63,7 +64,7 @@ describe("UserUpdateService", () => {
     )
   })
 
-  test("should reject update user with invalid password", () => {
+  test("should reject user update with invalid password", () => {
     expect(async () => {
       await userUpdateService.execute({
         id: john.id,
@@ -101,7 +102,23 @@ describe("UserUpdateService", () => {
     )
   })
 
-  test("should reject update user with email already registered", async () => {
+  test("should reject user update with the same id as the id administrator", async () => {
+    const admin = new AdminAccount()
+
+    inMemoryUserRepository.users = [admin]
+
+    expect(async () => {
+      await UserUpdateService.execute({
+        id: admin.id,
+        name: admin.name,
+        email: admin.name,
+        password: "1234",
+        newPassword: "4321",
+      })
+    })
+  })
+
+  test("should reject user update with email already registered", async () => {
     const henry = {
       id: crypto.randomUUID(),
       name: "Henry",
@@ -129,7 +146,7 @@ describe("UserUpdateService", () => {
     )
   })
 
-  test("should update user information and verify changes", async () => {
+  test("should user update information and verify changes", async () => {
     const newInformationsJohn = {
       name: "John Doe",
       email: "john.doe@email.com",

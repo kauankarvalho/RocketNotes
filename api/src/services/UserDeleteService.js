@@ -1,3 +1,4 @@
+const AdminValidator = require("../utils/AdminValidator")
 const ErrorResponse = require("../utils/ErrorResponse")
 const { compare } = require("bcryptjs")
 
@@ -28,6 +29,8 @@ class UserDeleteService {
         message: "Senha inválida",
       })
     }
+
+    AdminValidator.validator(id)
 
     await this.userRepository.delete(id)
   }
