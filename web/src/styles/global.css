@@ -20,6 +20,11 @@
   }
 }
 
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+  @apply bg-orange;
+}
+
 .Toastify__toast-body {
   font-size: 1.5rem;
+  text-align: justify;
 }
