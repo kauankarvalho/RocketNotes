@@ -39,7 +39,6 @@ describe("UserUpdateService", () => {
       new ErrorResponse({
         statusCode: 400,
         status: "warning",
-        field: ["name", "email"],
         message: "Você precisa fornecer tanto um nome quanto um email",
       }),
     )

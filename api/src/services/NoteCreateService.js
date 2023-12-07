@@ -13,7 +13,6 @@ class NoteCreateService {
       throw new ErrorResponse({
         statusCode: 400,
         status: "warning",
-        field: ["title", "description"],
         message: "Por favor, complete os campos de título e descrição",
       })
     }
