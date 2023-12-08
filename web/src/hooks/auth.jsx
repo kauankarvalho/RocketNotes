@@ -35,17 +35,6 @@ export function AuthProvider({ children }) {
     newPassword,
     avatarFile,
   }) {
-    const isAvatarFileExist = avatarFile
-    const isAvatarFileObject = typeof avatarFile === "object"
-
-    if (isAvatarFileExist && isAvatarFileObject) {
-      const fileUploadForm = new FormData()
-      fileUploadForm.append("avatar", avatarFile)
-
-      const response = await api.patch("/user/avatar", fileUploadForm)
-      avatarFile = response.data.avatar
-    }
-
     return api
       .put("/user", {
         name,
@@ -53,7 +42,18 @@ export function AuthProvider({ children }) {
         password,
         newPassword,
       })
-      .then((response) => {
+      .then(async (response) => {
+        const isAvatarFileExist = avatarFile
+        const isAvatarFileObject = typeof avatarFile === "object"
+
+        if (isAvatarFileExist && isAvatarFileObject) {
+          const fileUploadForm = new FormData()
+          fileUploadForm.append("avatar", avatarFile)
+
+          const response = await api.patch("/user/avatar", fileUploadForm)
+          avatarFile = response.data.avatar
+        }
+
         const user = {
           name,
           email,
