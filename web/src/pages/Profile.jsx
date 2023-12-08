@@ -66,6 +66,7 @@ export function Profile() {
 
         const isAdminAccount = error.field === "admin"
         if (isStatusError && isAdminAccount) {
+          setAvatar(avatarUrl)
           setName(user.name)
           setEmail(user.email)
           setPassword("")
