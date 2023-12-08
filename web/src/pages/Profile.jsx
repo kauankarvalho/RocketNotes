@@ -63,6 +63,14 @@ export function Profile() {
         if (isStatusError && isPasswordField) {
           setPassword("")
         }
+
+        const isAdminAccount = error.field === "admin"
+        if (isStatusError && isAdminAccount) {
+          setName(user.name)
+          setEmail(user.email)
+          setPassword("")
+          setNewPassword("")
+        }
       })
       .finally(() => setSaveButtonLoading(false))
   }
