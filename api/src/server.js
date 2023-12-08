@@ -29,4 +29,4 @@ app.use((error, request, response, next) => {
 })
 
 const port = process.env.SERVER_PORT || 3000
-app.listen(port, () => console.log(`Server ready at: http://localhost:${port}`))
+app.listen(port, () => console.log(`Server ready on port: ${port}`))
