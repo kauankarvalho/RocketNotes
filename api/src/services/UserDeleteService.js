@@ -1,4 +1,4 @@
-const AdminValidator = require("../utils/AdminValidator")
+const TestUserValidator = require("../utils/TestUserValidator")
 const ErrorResponse = require("../utils/ErrorResponse")
 const { compare } = require("bcryptjs")
 
@@ -30,7 +30,7 @@ class UserDeleteService {
       })
     }
 
-    AdminValidator.validator(id)
+    TestUserValidator.validator(id)
 
     await this.userRepository.delete(id)
   }

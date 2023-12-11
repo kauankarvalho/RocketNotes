@@ -1,8 +1,8 @@
 const InMemoryUserRepository = require("../repositories/InMemoryUserRepository")
+const TestUserAccount = require("../utils/TestUserAccount")
 import { describe, beforeEach, test, expect } from "vitest"
 const UserDeleteService = require("./UserDeleteService")
 const ErrorResponse = require("../utils/ErrorResponse")
-const AdminAccount = require("../utils/AdminAccount")
 const crypto = require("node:crypto")
 const { hash } = require("bcryptjs")
 
@@ -59,22 +59,23 @@ describe("UserDeleteService", () => {
     )
   })
 
-  test("should reject user delete with the same id as the id administrator", () => {
-    const admin = new AdminAccount()
+  test("should reject user delete with the same id as the test user id", () => {
+    const testUser = new TestUserAccount()
 
-    inMemoryUserRepository.users = [admin]
+    inMemoryUserRepository.users = [testUser]
 
     expect(async () => {
       await userDeleteService.execute({
-        id: admin.id,
+        id: testUser.id,
         password: "1234",
       })
     }).rejects.toEqual(
       new ErrorResponse({
         statusCode: 401,
         status: "error",
+        field: "test user",
         message:
-          "Alterações de informações ou exclusões na conta de administrador não são permitidas",
+          "Alterações de informações ou exclusões na conta de demonstração não são permitidas",
       }),
     )
   })

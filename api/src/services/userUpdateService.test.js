@@ -1,8 +1,8 @@
 const InMemoryUserRepository = require("../repositories/InMemoryUserRepository")
 const UserUpdateService = require("../services/UserUpdateService")
+const TestUserAccount = require("../utils/TestUserAccount")
 import { describe, beforeEach, test, expect } from "vitest"
 const ErrorResponse = require("../utils/ErrorResponse")
-const AdminAccount = require("../utils/AdminAccount")
 const crypto = require("node:crypto")
 const { hash } = require("bcryptjs")
 
@@ -101,20 +101,28 @@ describe("UserUpdateService", () => {
     )
   })
 
-  test("should reject user update with the same id as the id administrator", async () => {
-    const admin = new AdminAccount()
+  test("should reject user update with the same id as the test user id", () => {
+    const testUser = new TestUserAccount()
 
-    inMemoryUserRepository.users = [admin]
+    inMemoryUserRepository.users = [testUser]
 
     expect(async () => {
-      await UserUpdateService.execute({
-        id: admin.id,
-        name: admin.name,
-        email: admin.name,
+      await userUpdateService.execute({
+        id: testUser.id,
+        name: testUser.name,
+        email: testUser.email,
         password: "1234",
         newPassword: "4321",
       })
-    })
+    }).rejects.toEqual(
+      new ErrorResponse({
+        statusCode: 401,
+        status: "error",
+        field: "test user",
+        message:
+          "Alterações de informações ou exclusões na conta de demonstração não são permitidas",
+      }),
+    )
   })
 
   test("should reject user update with email already registered", async () => {

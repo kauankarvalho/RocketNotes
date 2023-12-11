@@ -1,5 +1,5 @@
+const TestUserValidator = require("../utils/TestUserValidator")
 const EmailValidator = require("../utils/EmailValidator")
-const AdminValidator = require("../utils/AdminValidator")
 const ErrorResponse = require("../utils/ErrorResponse")
 const { hash, compare } = require("bcryptjs")
 
@@ -41,7 +41,7 @@ class UserUpdateService {
     }
 
     EmailValidator.validator(email)
-    AdminValidator.validator(id)
+    TestUserValidator.validator(id)
 
     const emailExist = await this.userRepository.getUserByEmail(email)
 
