@@ -48,21 +48,21 @@ Explore todos os recursos e desfrute da experiência completa!
 
 ### Gerenciamento de Usuário:
 
-- **Cadastro de Conta**: Possibilita aos usuários a criação de uma nova conta, inserindo informações fundamentais como nome, e-mail e senha;
+- **Cadastro de Conta:** Possibilita aos usuários a criação de uma nova conta, inserindo informações fundamentais como nome, e-mail e senha;
 
-- **Atualização de Dados da Conta**: Capacita os usuários a modificarem suas informações, tais como nome, e-mail, senha e avatar, mantendo-as sempre atualizadas;
+- **Atualização de Dados da Conta:** Capacita os usuários a modificarem suas informações, tais como nome, e-mail, senha e avatar, mantendo-as sempre atualizadas;
 
-- **Exclusão de Conta**: Oferece aos usuários a opção de excluir sua conta, proporcionando um processo direto para encerrar a participação no sistema.
+- **Exclusão de Conta:** Oferece aos usuários a opção de excluir sua conta, proporcionando um processo direto para encerrar a participação no sistema.
 
 ### Gerenciamento de Anotações:
 
-- **Listagem de Anotações e Tags**: Apresenta uma lista abrangente de todas as anotações e tags associadas a um usuário, oferecendo uma visão completa do seu conjunto de informações;
+- **Listagem de Anotações e Tags:** Apresenta uma lista abrangente de todas as anotações e tags associadas a um usuário, oferecendo uma visão completa do seu conjunto de informações;
 
-- **Filtragem de Anotações**: Facilita a busca ao fornecer uma lista filtrada por título ou tag das anotações, simplificando a localização de informações específicas desejadas;
+- **Filtragem de Anotações:** Facilita a busca ao fornecer uma lista filtrada por título ou tag das anotações, simplificando a localização de informações específicas desejadas;
 
-- **Criação de Novas Anotações**: Capacita os usuários a criar novas anotações de maneira intuitiva, incluindo título, descrição, links e tags, proporcionando uma experiência flexível e personalizada;
+- **Criação de Novas Anotações:** Capacita os usuários a criar novas anotações de maneira intuitiva, incluindo título, descrição, links e tags, proporcionando uma experiência flexível e personalizada;
 
-- **Exclusão de Anotações**: Permite aos usuários removerem anotações previamente criadas, garantindo controle sobre o conteúdo armazenado e possibilitando a gestão eficiente de suas notas.
+- **Exclusão de Anotações:** Permite aos usuários removerem anotações previamente criadas, garantindo controle sobre o conteúdo armazenado e possibilitando a gestão eficiente de suas notas.
 
 ## 🔐 Conta de Demonstração
 
@@ -84,8 +84,8 @@ Sinta-se à vontade para usar esta conta de demonstração para explorar a aplic
 
 Este é um repositório monorepo que contém duas principais pastas:
 
-- **web**: Contém o código fonte do frontend da aplicação.
-- **api**: Contém o código fonte da API backend.
+- **web:** Contém o código fonte do frontend da aplicação.
+- **api:** Contém o código fonte da API backend.
 
 ## ⚙️ Configuração e Execução
 
@@ -119,7 +119,7 @@ A documentação é fundamental para manter o projeto fácil de entender. Se voc
 
 Se você deseja um projeto comigo, colaborações ou oferecer oportunidades de carreira, fique à vontade para entrar em contato:
 
-- **E-mail**: [kauan.karvalho@outlook.com](mailto:kauan.karvalho@outlook.com)
+- **E-mail:** [kauan.karvalho@outlook.com](mailto:kauan.karvalho@outlook.com)
 
 ## 📝 Licença
 
